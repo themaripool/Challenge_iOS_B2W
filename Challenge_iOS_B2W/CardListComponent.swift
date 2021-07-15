@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-// cor de planta Color.init(#colorLiteral(red: 0.389439851, green: 0.7105978727, blue: 0.5623883009, alpha: 1))
-// cor de fogo Color.init(#colorLiteral(red: 1, green: 0.777096808, blue: 0.5435240865, alpha: 1))
-
 struct CardListComponent: View {
     
     var pokedexNumber: String
@@ -22,15 +19,15 @@ struct CardListComponent: View {
         ZStack {
             switch typeString.first {
                 case "Grass":
-                    Color.init(#colorLiteral(red: 0.389439851, green: 0.7105978727, blue: 0.5623883009, alpha: 1))
+                    Color("Grass")
                         .ignoresSafeArea()
                         .grayscale(0.50)
                 case "Water":
-                    Color.init(#colorLiteral(red: 0.5974534154, green: 0.8613514304, blue: 0.9349719882, alpha: 1))
+                    Color("Water")
                         .ignoresSafeArea()
                         .grayscale(0.50)
                 default:
-                    Color.init(#colorLiteral(red: 1, green: 0.777096808, blue: 0.5435240865, alpha: 1))
+                    Color("Fire")
                         .ignoresSafeArea()
                         .grayscale(0.50)
             }
