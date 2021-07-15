@@ -8,30 +8,27 @@
 import SwiftUI
 import Introspect
 
-struct Pokemon: Identifiable {
-    var name: String
-    var id: String
-    var types: [String]
-    
-}
+//MARK: TODO
+// Loading quando a lista de pkm esta vazia
+// Como eu pego os detalhes com outro request
+// Como fazer cacheamento
+// Paginacao na lista de home
+// Internacionalizacao EN-PT
+// API de ibagens
+
 
 struct ContentView: View {
     
-    var pokemonList = [
-        Pokemon(name: "Bulbasauro", id: "#001", types: ["Grass", "Poison"]),
-        Pokemon(name: "Ivysaur", id: "#002", types: ["Grass", "Poison"]),
-        Pokemon(name: "Venusaur", id: "#003", types: ["Grass", "Poison"]),
-        Pokemon(name: "Charmander", id: "#004", types: ["Fire"]),
-        Pokemon(name: "Squirtle", id: "#007", types: ["Water"])
-        
-    ]
+    @ObservedObject var homeViewModel: HomeViewModel
     
+    var pkm = [Pokemon(name: "a", url: "")]
+
     var body: some View {
         NavigationView {
-            List(pokemonList) { item in
-                CardListComponent(pokedexNumber: item.id, pokemonName: item.name, typeString: item.types)
+            List(self.homeViewModel.pokemonList ?? pkm , id: \.self) { item in
+                CardListComponent(pokedexNumber: "0", pokemonName: item.name, typeString: ["Grass", "Poison"] )
             }
-            //.removeBackground()
+            //Text("Teste")
             .navigationBarTitle("Pokedex")
             .navigationBarItems(trailing:
                 Button(action: {
@@ -47,7 +44,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(homeViewModel: HomeViewModel())
     }
 }
 

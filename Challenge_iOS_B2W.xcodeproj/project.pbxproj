@@ -15,6 +15,11 @@
 		C03B70BE269E70F400CD9FAA /* Challenge_iOS_B2WUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70BD269E70F400CD9FAA /* Challenge_iOS_B2WUITests.swift */; };
 		C03B70CC269E78F300CD9FAA /* CardListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70CB269E78F300CD9FAA /* CardListComponent.swift */; };
 		C03B70CF269E899E00CD9FAA /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C03B70CE269E899E00CD9FAA /* Introspect */; };
+		C03B70D626A0530A00CD9FAA /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70D526A0530A00CD9FAA /* Pokemon.swift */; };
+		C03B70DA26A0540600CD9FAA /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70D926A0540600CD9FAA /* HomeViewModel.swift */; };
+		C03B70DE26A0543500CD9FAA /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70DD26A0543500CD9FAA /* DetailsViewModel.swift */; };
+		C03B70E126A05B3300CD9FAA /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C03B70E026A05B3300CD9FAA /* Alamofire */; };
+		C03B70E326A05D4E00CD9FAA /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70E226A05D4E00CD9FAA /* Services.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +53,10 @@
 		C03B70BD269E70F400CD9FAA /* Challenge_iOS_B2WUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge_iOS_B2WUITests.swift; sourceTree = "<group>"; };
 		C03B70BF269E70F400CD9FAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C03B70CB269E78F300CD9FAA /* CardListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListComponent.swift; sourceTree = "<group>"; };
+		C03B70D526A0530A00CD9FAA /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
+		C03B70D926A0540600CD9FAA /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		C03B70DD26A0543500CD9FAA /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
+		C03B70E226A05D4E00CD9FAA /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +65,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C03B70CF269E899E00CD9FAA /* Introspect in Frameworks */,
+				C03B70E126A05B3300CD9FAA /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,12 +109,14 @@
 		C03B709F269E70F300CD9FAA /* Challenge_iOS_B2W */ = {
 			isa = PBXGroup;
 			children = (
+				C03B70D826A053EA00CD9FAA /* ViewModel */,
+				C03B70D726A053E400CD9FAA /* Views */,
+				C03B70D426A052F700CD9FAA /* Models */,
 				C03B70A0269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift */,
-				C03B70A2269E70F300CD9FAA /* ContentView.swift */,
 				C03B70A4269E70F400CD9FAA /* Assets.xcassets */,
 				C03B70A9269E70F400CD9FAA /* Info.plist */,
 				C03B70A6269E70F400CD9FAA /* Preview Content */,
-				C03B70CB269E78F300CD9FAA /* CardListComponent.swift */,
+				C03B70E226A05D4E00CD9FAA /* Services.swift */,
 			);
 			path = Challenge_iOS_B2W;
 			sourceTree = "<group>";
@@ -135,6 +147,32 @@
 			path = Challenge_iOS_B2WUITests;
 			sourceTree = "<group>";
 		};
+		C03B70D426A052F700CD9FAA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C03B70D526A0530A00CD9FAA /* Pokemon.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C03B70D726A053E400CD9FAA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C03B70A2269E70F300CD9FAA /* ContentView.swift */,
+				C03B70CB269E78F300CD9FAA /* CardListComponent.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C03B70D826A053EA00CD9FAA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C03B70D926A0540600CD9FAA /* HomeViewModel.swift */,
+				C03B70DD26A0543500CD9FAA /* DetailsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -153,6 +191,7 @@
 			name = Challenge_iOS_B2W;
 			packageProductDependencies = (
 				C03B70CE269E899E00CD9FAA /* Introspect */,
+				C03B70E026A05B3300CD9FAA /* Alamofire */,
 			);
 			productName = Challenge_iOS_B2W;
 			productReference = C03B709D269E70F300CD9FAA /* Challenge_iOS_B2W.app */;
@@ -227,6 +266,7 @@
 			mainGroup = C03B7094269E70F300CD9FAA;
 			packageReferences = (
 				C03B70CD269E899E00CD9FAA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				C03B70DF26A05B3300CD9FAA /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = C03B709E269E70F300CD9FAA /* Products */;
 			projectDirPath = "";
@@ -271,8 +311,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C03B70A3269E70F300CD9FAA /* ContentView.swift in Sources */,
+				C03B70D626A0530A00CD9FAA /* Pokemon.swift in Sources */,
 				C03B70CC269E78F300CD9FAA /* CardListComponent.swift in Sources */,
+				C03B70E326A05D4E00CD9FAA /* Services.swift in Sources */,
+				C03B70DA26A0540600CD9FAA /* HomeViewModel.swift in Sources */,
 				C03B70A1269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift in Sources */,
+				C03B70DE26A0543500CD9FAA /* DetailsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,6 +646,14 @@
 				minimumVersion = 0.1.3;
 			};
 		};
+		C03B70DF26A05B3300CD9FAA /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -609,6 +661,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C03B70CD269E899E00CD9FAA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
+		};
+		C03B70E026A05B3300CD9FAA /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C03B70DF26A05B3300CD9FAA /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
