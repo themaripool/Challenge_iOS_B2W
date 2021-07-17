@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Introspect
+
 
 //MARK: TODO
 // Loading quando a lista de pkm esta vazia
@@ -25,14 +25,14 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List(self.homeViewModel.pokemonList ?? pkm , id: \.self) { item in
-                CardListComponent(pokedexNumber: "0", pokemonName: item.name, typeString: ["Grass", "Poison"] )
+            List {
+                pokemonList
             }
             //Text("Teste")
             .navigationBarTitle("Pokedex")
             .navigationBarItems(trailing:
                 Button(action: {
-                    print("Edit button was tapped")}
+                    print("search button was tapped")}
                 ) {
                 Image(systemName: "magnifyingglass")
                 }
@@ -40,21 +40,28 @@ struct ContentView: View {
         }
         
     }
+    
+    var pokemonList: some View {
+        return Group {
+            ForEach(self.homeViewModel.pokemonList.indices, id: \.self) { index in
+                
+                let pokemon = self.homeViewModel.pokemonList[index]
+                var id = self.homeViewModel.extractIdFromPokemon(urlPokemon: pokemon.url)
+                
+                CardListComponent(detailsViewModel: DetailsViewModel(), pokedexNumber: id, pokemonName: pokemon.name, typeString: ["Grass", "Poison"], index: index + 1)
+                    .onAppear {
+                        if self.homeViewModel.pokemonList.last == pokemon {
+                            print("ultimo")
+                            //self.newsViewModel.loadMore()
+                        }
+                    }
+            }
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(homeViewModel: HomeViewModel())
     }
-}
-
-extension List {
-  /// List on macOS uses an opaque background with no option for
-  /// removing/changing it. listRowBackground() doesn't work either.
-  /// This workaround works because List is backed by NSTableView.
-  func removeBackground() -> some View {
-    return introspectTableView { tableView in
-      tableView.backgroundColor = .clear
-    }
-  }
 }

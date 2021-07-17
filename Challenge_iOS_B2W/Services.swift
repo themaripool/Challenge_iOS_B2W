@@ -10,10 +10,10 @@ import Alamofire
 
 class PokemonService: NSObject {
 
-    static func getAllPokemons(completion: @escaping ([Pokemon]?, Error?) -> Void){
+    static func getAllPokemons(completion: @escaping ([Pokemon], Error?) -> Void){
             let url = "https://pokeapi.co/api/v2/pokemon/"
             
-            var pokemonList : [Pokemon]?
+            var pokemonList : [Pokemon] = []
             
             AF.request(url).responseData { response in
                 switch response.result {
@@ -25,6 +25,31 @@ class PokemonService: NSObject {
                         pokemonList = root.results
                         completion(pokemonList, nil)
                     } catch let error {
+                        completion([], error)
+                        print(error)
+                    }
+                    
+                }
+            }
+        }
+    
+    
+    static func getDetailsPokemons(id: Int, completion: @escaping (Details?, Error?) -> Void){
+        
+            let url = "https://pokeapi.co/api/v2/pokemon/\(id)/"
+            
+            var pokemonDetailsList : Details?//[Details]?
+            
+            AF.request(url).responseData { response in
+                switch response.result {
+                case .failure(let error):
+                    print(error)
+                case .success(let data):
+                    do {
+                        let root = try JSONDecoder().decode(Details.self, from: data)
+                        pokemonDetailsList = root
+                        completion(pokemonDetailsList, nil)
+                    } catch let error {
                         completion(nil, error)
                         print(error)
                     }
@@ -34,3 +59,38 @@ class PokemonService: NSObject {
         }
     
 }
+
+
+
+
+
+//func loadJSON() {
+//    let url = "https://pokeapi.co/api/v2/pokemon/"
+//    guard let urlObj = URL(string: url) else { return }
+//
+//    URLSession.shared.dataTask(with: urlObj) {(data, response, error) in
+//        guard let data = data else { return }
+//
+//        do {
+//            let pokedex = try JSONDecoder().decode(Pokedex.self, from: data)
+//
+//            for pokemon in pokedex.results {
+//                guard let jsonURL = pokemon.url else { return }
+//                guard let newURL = URL(string: jsonURL) else { return }
+//
+//                URLSession.shared.dataTask(with: newURL) {(data, response, error) in
+//                    guard let data = data else { return }
+//
+//                    do {
+//                        let load = try JSONDecoder().decode(Pokemon.self, from: data)
+//                        self.pokemons.append(load)
+//                    } catch let jsonErr {
+//                        print("Error serializing inner JSON:", jsonErr)
+//                    }
+//                }.resume()
+//            }
+//        } catch let jsonErr{
+//            print("Error serializing JSON: ", jsonErr)
+//        }
+//        }.resume()
+//}

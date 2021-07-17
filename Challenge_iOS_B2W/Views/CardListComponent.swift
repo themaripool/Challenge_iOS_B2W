@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct CardListComponent: View {
+        
+    @ObservedObject var detailsViewModel: DetailsViewModel
     
     var pokedexNumber: String
     var pokemonName: String
     var typeString: [String]
-    
+    var index: Int
     
     var body: some View {
         
@@ -31,6 +34,14 @@ struct CardListComponent: View {
                         .ignoresSafeArea()
                         .grayscale(0.50)
             }
+            
+            NavigationLink(destination:
+                            DetailsView().environmentObject(detailsViewModel)
+                .onAppear(){
+                    print("index clicdo eh \(index)")
+                   // detailsViewModel.getPokemonsDetails(index: index)
+                                
+            }) { EmptyView()}.frame(width: 0)
             
             HStack(alignment: .center, spacing: 16){
                 
@@ -62,8 +73,14 @@ struct CardListComponent: View {
                 
                 Spacer()
                 
-                
-                Image(pokemonName)
+                KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/\(pokedexNumber).png")!)
+                    .placeholder {
+                        Image(uiImage: UIImage(named: "placeholder")!)
+                            .resizable()
+                            .renderingMode(.original)
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: UIScreen.main.bounds.width)
+                    }
                     .resizable()
                     .frame(width: 100, height: 80)
                 
@@ -74,8 +91,8 @@ struct CardListComponent: View {
     }
 }
 
-struct CardListComponent_Previews: PreviewProvider {
-    static var previews: some View {
-        CardListComponent(pokedexNumber: "#0001", pokemonName: "Bulbassauro", typeString: ["Poison", "Grass"]).frame(width: 370, height: 100)
-    }
-}
+//struct CardListComponent_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CardListComponent(pokedexNumber: "#0001", pokemonName: "Bulbassauro", typeString: ["Poison", "Grass"], index: 0).frame(width: 370, height: 100)
+//    }
+//}

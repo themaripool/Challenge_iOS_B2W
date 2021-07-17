@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C001D0A526A32063007A2FA1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C001D0A426A32063007A2FA1 /* Kingfisher */; };
+		C034FB6926A0AE3900A34C01 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C034FB6826A0AE3900A34C01 /* DetailsView.swift */; };
 		C03B70A1269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70A0269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift */; };
 		C03B70A3269E70F300CD9FAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70A2269E70F300CD9FAA /* ContentView.swift */; };
 		C03B70A5269E70F400CD9FAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03B70A4269E70F400CD9FAA /* Assets.xcassets */; };
@@ -40,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C034FB6826A0AE3900A34C01 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		C03B709D269E70F300CD9FAA /* Challenge_iOS_B2W.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge_iOS_B2W.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03B70A0269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge_iOS_B2WApp.swift; sourceTree = "<group>"; };
 		C03B70A2269E70F300CD9FAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -64,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C001D0A526A32063007A2FA1 /* Kingfisher in Frameworks */,
 				C03B70CF269E899E00CD9FAA /* Introspect in Frameworks */,
 				C03B70E126A05B3300CD9FAA /* Alamofire in Frameworks */,
 			);
@@ -160,6 +164,7 @@
 			children = (
 				C03B70A2269E70F300CD9FAA /* ContentView.swift */,
 				C03B70CB269E78F300CD9FAA /* CardListComponent.swift */,
+				C034FB6826A0AE3900A34C01 /* DetailsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -192,6 +197,7 @@
 			packageProductDependencies = (
 				C03B70CE269E899E00CD9FAA /* Introspect */,
 				C03B70E026A05B3300CD9FAA /* Alamofire */,
+				C001D0A426A32063007A2FA1 /* Kingfisher */,
 			);
 			productName = Challenge_iOS_B2W;
 			productReference = C03B709D269E70F300CD9FAA /* Challenge_iOS_B2W.app */;
@@ -267,6 +273,7 @@
 			packageReferences = (
 				C03B70CD269E899E00CD9FAA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				C03B70DF26A05B3300CD9FAA /* XCRemoteSwiftPackageReference "Alamofire" */,
+				C001D0A326A32063007A2FA1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = C03B709E269E70F300CD9FAA /* Products */;
 			projectDirPath = "";
@@ -315,6 +322,7 @@
 				C03B70CC269E78F300CD9FAA /* CardListComponent.swift in Sources */,
 				C03B70E326A05D4E00CD9FAA /* Services.swift in Sources */,
 				C03B70DA26A0540600CD9FAA /* HomeViewModel.swift in Sources */,
+				C034FB6926A0AE3900A34C01 /* DetailsView.swift in Sources */,
 				C03B70A1269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift in Sources */,
 				C03B70DE26A0543500CD9FAA /* DetailsViewModel.swift in Sources */,
 			);
@@ -638,6 +646,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C001D0A326A32063007A2FA1 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.3.0;
+			};
+		};
 		C03B70CD269E899E00CD9FAA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
@@ -657,6 +673,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C001D0A426A32063007A2FA1 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C001D0A326A32063007A2FA1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		C03B70CE269E899E00CD9FAA /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C03B70CD269E899E00CD9FAA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
