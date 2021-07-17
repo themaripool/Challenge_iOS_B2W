@@ -26,17 +26,15 @@ struct Pokemon: Codable, Hashable {
 
 struct Details: Codable {
     var id                  : Int
-    var stats               : [Stats]?
-    var abilities           : [Abilities]?
-    var types               : [Types]?
-    
-
+    var stats               : [Stats]
+    var abilities           : [Abilities]
+    var types               : [Types]
 }
 
 struct Stats: Codable {
     var base_stat           : Int
     var effort              : Int
-    var stat                : Stat?
+    var stat                : Stat
     
 }
 
@@ -46,7 +44,7 @@ struct Stat: Codable {
 }
 
 struct Abilities : Codable {
-    var ability             : Ability?
+    var ability             : Ability
     var is_hidden           : Bool
     var slot                : Int
 }
@@ -58,7 +56,7 @@ struct Ability : Codable {
 
 struct Types : Codable {
     var slot                : Int
-    var type                : Type?
+    var type                : Type
 }
 
 struct Type : Codable {

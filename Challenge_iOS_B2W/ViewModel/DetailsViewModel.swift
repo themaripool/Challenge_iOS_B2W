@@ -6,9 +6,9 @@
 //
 
 import Foundation
-class DetailsViewModel: ObservableObject, Identifiable {
+class DetailsViewModel: ObservableObject{
 
-    @Published var pokemonDetailsList       :Details?//: [Details]?
+    @Published var pokemonDetailsList  :Details = Details(id: 0, stats: [], abilities: [], types: [])
     
     init() {
        // getPokemonsDetails(index: 1)

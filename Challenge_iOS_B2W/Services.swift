@@ -34,11 +34,11 @@ class PokemonService: NSObject {
         }
     
     
-    static func getDetailsPokemons(id: Int, completion: @escaping (Details?, Error?) -> Void){
+    static func getDetailsPokemons(id: Int, completion: @escaping (Details, Error?) -> Void){
         
             let url = "https://pokeapi.co/api/v2/pokemon/\(id)/"
             
-            var pokemonDetailsList : Details?//[Details]?
+            var pokemonDetailsList : Details = Details(id: 0, stats: [], abilities: [], types: [])
             
             AF.request(url).responseData { response in
                 switch response.result {
@@ -50,7 +50,7 @@ class PokemonService: NSObject {
                         pokemonDetailsList = root
                         completion(pokemonDetailsList, nil)
                     } catch let error {
-                        completion(nil, error)
+                        completion(Details(id: 0, stats: [], abilities: [], types: []), error)
                         print(error)
                     }
                     

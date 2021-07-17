@@ -11,10 +11,25 @@ struct DetailsView: View {
 
     @EnvironmentObject var detailsViewModel: DetailsViewModel
     
-    
-    
     var body: some View {
-        Text("ä")
+        VStack{
+            Text("a")
+            
+            ForEach(self.detailsViewModel.pokemonDetailsList.types.indices, id: \.self) { index in
+                var ab = self.detailsViewModel.pokemonDetailsList.types[index]
+                Text(ab.type.name)
+                Text("\(ab.slot)")
+            }
+            
+            ForEach(self.detailsViewModel.pokemonDetailsList.abilities.indices, id: \.self) { index in
+                var ab = self.detailsViewModel.pokemonDetailsList.abilities[index]
+                Text(ab.ability.name)
+                Text("\(ab.is_hidden.description)")
+                Text("\(ab.slot)")
+            }
+//            Text(detailsViewModel.pokemonDetailsList.id)
+//            Text(detailsViewModel.pokemonDetailsList.types)
+        }
         //Text("aaa \(detailsViewModel.pokemonDetailsList?.id)")
     }
 }

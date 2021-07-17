@@ -39,7 +39,7 @@ struct CardListComponent: View {
                             DetailsView().environmentObject(detailsViewModel)
                 .onAppear(){
                     print("index clicdo eh \(index)")
-                   // detailsViewModel.getPokemonsDetails(index: index)
+                    detailsViewModel.getPokemonsDetails(index: index)
                                 
             }) { EmptyView()}.frame(width: 0)
             
