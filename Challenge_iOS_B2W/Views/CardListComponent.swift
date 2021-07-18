@@ -36,7 +36,7 @@ struct CardListComponent: View {
             }
             
             NavigationLink(destination:
-                            DetailsView().environmentObject(detailsViewModel)
+                            DetailsView().environmentObject(detailsViewModel).navigationBarHidden(true)
                 .onAppear(){
                     print("index clicdo eh \(index)")
                     detailsViewModel.getPokemonsDetails(index: index)
