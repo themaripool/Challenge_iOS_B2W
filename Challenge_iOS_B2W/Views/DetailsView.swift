@@ -10,20 +10,21 @@ import Kingfisher
 
 struct DetailsView: View {
     
+    @EnvironmentObject var detailsViewModel: DetailsViewModel
     @State private var showingSheet = false
     @State private var showingMove = false
-    @ObservedObject var detailsViewModel: DetailsViewModel
+    //@ObservedObject var detailsViewModel: DetailsViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    var pokedexNumber: String
+    var pokedexNumber = ""
     
-    init(_ pokedexNumber: String, _ detailsViewModel: DetailsViewModel) {
-        
-        self.pokedexNumber = pokedexNumber
-        self.detailsViewModel = detailsViewModel
-        
-        detailsViewModel.getPokemonsDetails(index: Int(pokedexNumber)!)
-
-    }
+//    init(_ pokedexNumber: String, _ detailsViewModel: DetailsViewModel) {
+//
+//        self.pokedexNumber = pokedexNumber
+////        self.detailsViewModel = detailsViewModel
+//        print("[DEBUG]: Aqui")
+////        detailsViewModel.getPokemonsDetails(index: Int(pokedexNumber)!)
+//
+//    }
     
     var body: some View {
         ZStack(alignment: .top, content: {
@@ -68,19 +69,22 @@ struct DetailsView: View {
 
                 VStack {
                     
-                    Text("Charmander")
+                    Text(detailsViewModel.pokemonDetailsList.name.capitalized)
                         .font(.custom("Arial", size: 32))
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                     
                     HStack(alignment: .center) {
                         
-                        Text((self.detailsViewModel.pokemonDetailsList.types.first?.type.name)!)
-                            .font(.custom("Arial", size: 16))
-                            .foregroundColor(.white)
-                            .padding(12)
-                            .background(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-                            .clipShape(RoundedRectangle(cornerRadius: 30))
+                        ForEach(self.detailsViewModel.pokemonDetailsList.types.indices, id: \.self){ type in
+                            var pkmType = self.detailsViewModel.pokemonDetailsList.types[type].type.name
+                            Text(pkmType)
+                                .font(.custom("Arial", size: 16))
+                                .foregroundColor(.white)
+                                .padding(12)
+                                .background(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)).opacity(0.3))
+                                .clipShape(RoundedRectangle(cornerRadius: 30))
+                        }
                         
                         Spacer()
                         
@@ -118,30 +122,27 @@ struct DetailsView: View {
                 
         return Group {
             
-            HStack{
+            HStack(alignment:.center){
+
                 VStack(alignment: .leading){
-                    Text("HP")
-                    Text("Attack")
-                    Text("Defense")
-                    Text("Sp Attack")
-                    Text("Sp Defense")
-                    Text("Speed")
+                    ForEach (self.detailsViewModel.pokemonDetailsList.stats.indices, id: \.self){ index in
+                        let stats = self.detailsViewModel.pokemonDetailsList.stats[index]
+                            Text(stats.stat.name)
+                    }
                 }
+                
                 VStack(alignment: .center){
-                    Text("45")
-                    Text("60")
-                    Text("45")
-                    Text("45")
-                    Text("45")
-                    Text("45")
+                    ForEach (self.detailsViewModel.pokemonDetailsList.stats.indices, id: \.self){ index in
+                        let stats = self.detailsViewModel.pokemonDetailsList.stats[index]
+                        Text("\(stats.base_stat)")
+                    }
                 }
+                
                 VStack(alignment: .trailing){
-                    ProgressBar(value: 45.0).frame(height: 12).environmentObject(detailsViewModel)
-                    ProgressBar(value: 60.0).frame(height: 12).environmentObject(detailsViewModel)
-                    ProgressBar(value: 45.0).frame(height: 12).environmentObject(detailsViewModel)
-                    ProgressBar(value: 45.0).frame(height: 12).environmentObject(detailsViewModel)
-                    ProgressBar(value: 45.0).frame(height: 12).environmentObject(detailsViewModel)
-                    ProgressBar(value: 45.0).frame(height: 12).environmentObject(detailsViewModel)
+                    ForEach (self.detailsViewModel.pokemonDetailsList.stats.indices, id: \.self){ index in
+                        let stats = self.detailsViewModel.pokemonDetailsList.stats[index]
+                        ProgressBar(value: Float(stats.base_stat)).frame(height: 12).environmentObject(detailsViewModel)
+                    }
                 }
             }
             .padding(.horizontal, 8.0)
@@ -293,7 +294,7 @@ struct DetailsView: View {
 
 struct DetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailsView("0", DetailsViewModel()).environmentObject(DetailsViewModel())
+        DetailsView().environmentObject(DetailsViewModel())
     }
 }
 

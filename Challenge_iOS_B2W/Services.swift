@@ -38,7 +38,7 @@ class PokemonService: NSObject {
         
             let url = "https://pokeapi.co/api/v2/pokemon/\(id)/"
             
-            var pokemonDetailsList : Details = Details(id: 0, stats: [], abilities: [], types: [])
+        var pokemonDetailsList : Details = Details(id: 0, stats: [], abilities: [], types: [], name: "")
             
             AF.request(url).responseData { response in
                 switch response.result {
@@ -50,7 +50,7 @@ class PokemonService: NSObject {
                         pokemonDetailsList = root
                         completion(pokemonDetailsList, nil)
                     } catch let error {
-                        completion(Details(id: 0, stats: [], abilities: [], types: []), error)
+                        completion(Details(id: 0, stats: [], abilities: [], types: [], name: ""), error)
                         print(error)
                     }
                     

@@ -29,6 +29,7 @@ struct Details: Codable {
     var stats               : [Stats]
     var abilities           : [Abilities]
     var types               : [Types]
+    var name                : String
 }
 
 struct Stats: Codable {

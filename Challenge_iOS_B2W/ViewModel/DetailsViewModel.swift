@@ -10,11 +10,10 @@ import SwiftUI
 
 class DetailsViewModel: ObservableObject{
 
-    @Published var pokemonDetailsList  :Details = Details(id: 0, stats: [], abilities: [], types: [])
+    @Published var pokemonDetailsList  :Details = Details(id: 0, stats: [], abilities: [], types: [], name: "")
     var color: Color = Color.white
     
     init() {
-       // getPokemonsDetails(index: 1)
         color = getColor()
     }
     
@@ -73,7 +72,7 @@ class DetailsViewModel: ObservableObject{
         PokemonService.getDetailsPokemons(id: index) { results, error  in
             if results != nil {
                 self.pokemonDetailsList = results
-                print("[DEBUG]: RES = \(String(describing: results))")
+               // print("[DEBUG]: RES = \(String(describing: results))")
                 //self.movieView?.setPopularListView(results)
             } else{
                 print("[DEBUG] no results no details")
