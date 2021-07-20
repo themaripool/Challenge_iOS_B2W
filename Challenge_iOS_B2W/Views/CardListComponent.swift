@@ -10,7 +10,7 @@ import Kingfisher
 
 struct CardListComponent: View {
         
-    @ObservedObject var detailsViewModel: DetailsViewModel
+  //  @ObservedObject var detailsViewModel: DetailsViewModel
     
     var pokedexNumber: String
     var pokemonName: String
@@ -23,10 +23,10 @@ struct CardListComponent: View {
             Color.init("Background")
             
             NavigationLink(destination:
-                            DetailsView().environmentObject(detailsViewModel).navigationBarHidden(true)
+                            DetailsView(pokedexNumber, DetailsViewModel())//.navigationBarHidden(true)
                 .onAppear(){
                     print("index clicdo eh \(index)")
-                    detailsViewModel.getPokemonsDetails(index: index)
+        
                                 
             }) { EmptyView()}.frame(width: 0)
             

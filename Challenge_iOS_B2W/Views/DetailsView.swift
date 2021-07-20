@@ -12,8 +12,18 @@ struct DetailsView: View {
     
     @State private var showingSheet = false
     @State private var showingMove = false
-    @EnvironmentObject var detailsViewModel: DetailsViewModel
+    @ObservedObject var detailsViewModel: DetailsViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    var pokedexNumber: String
+    
+    init(_ pokedexNumber: String, _ detailsViewModel: DetailsViewModel) {
+        
+        self.pokedexNumber = pokedexNumber
+        self.detailsViewModel = detailsViewModel
+        
+        detailsViewModel.getPokemonsDetails(index: Int(pokedexNumber)!)
+
+    }
     
     var body: some View {
         ZStack(alignment: .top, content: {
@@ -27,62 +37,61 @@ struct DetailsView: View {
                     PokemonMoves
                 }
             }.edgesIgnoringSafeArea(.all)
-            //.listStyle(PlainListStyle())
-            .navigationBarItems(
-                leading: leftButton
-            )
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: self.barBackButton)
         })
     }
     
-    private var leftButton: some View {
-        return  Button(action: { self.presentationMode.wrappedValue.dismiss() }){Image(systemName: "chevron.left").foregroundColor(.black)}
+    var barBackButton: some View {
+        Button(action: {}) {
+            Image(systemName: "chevron.left")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .foregroundColor(.white)
+                .frame(width: 20, height: 20)
+                .onTapGesture {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+        }
+        .frame(width: 32, height: 32)
     }
     
     var PokemonHeader: some View {
         
+//        var type = self.detailsViewModel.pokemonDetailsList.types.first?.type.name
+        
         return Group {
             
             ZStack{
-                switch self.detailsViewModel.pokemonDetailsList.types.first?.type.name {
-                case "Grass":
-                    Color("Grass")
-                        .ignoresSafeArea()
-                case "Water":
-                    Color("Water")
-                        .ignoresSafeArea()
-                default:
-                    Color("Fire")
-                        .ignoresSafeArea()
-                }
-                
+                let colorPKM = detailsViewModel.getColor()
+                colorPKM.edgesIgnoringSafeArea(.all)
+
                 VStack {
                     
+                    Text("Charmander")
+                        .font(.custom("Arial", size: 32))
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    
                     HStack(alignment: .center) {
-                        VStack(alignment: .leading) {
-                            Text("Charmander")
-                                .font(.custom("Arial", size: 32))
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                            
-                            Text("Fire")
-                                .font(.custom("Arial", size: 16))
-                                .foregroundColor(.white)
-                                .padding(12)
-                                .background(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-                                .clipShape(RoundedRectangle(cornerRadius: 30))
-                        }
+                        
+                        Text((self.detailsViewModel.pokemonDetailsList.types.first?.type.name)!)
+                            .font(.custom("Arial", size: 16))
+                            .foregroundColor(.white)
+                            .padding(12)
+                            .background(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                            .clipShape(RoundedRectangle(cornerRadius: 30))
                         
                         Spacer()
                         
-                        Text("#004")
+                        Text("#" + pokedexNumber)
                             .font(.custom("Arial", size: 16))
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                         
-                    }.padding(.bottom, 32)
+                    }
                     
-                    
-                    KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/4.png")!)
+                    KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/\(pokedexNumber).png")!)
                         .placeholder {
                             Image(uiImage: UIImage(named: "placeholder")!)
                                 .resizable()
@@ -97,7 +106,7 @@ struct DetailsView: View {
                     
                     
                 }
-                .padding(.top, 56.0)
+                .padding(.top, 64.0)
                 .padding(.horizontal, 8.0)
                 
                 
@@ -106,7 +115,7 @@ struct DetailsView: View {
     }
     
     var PokemonStats: some View {
-        
+                
         return Group {
             
             HStack{
@@ -127,12 +136,12 @@ struct DetailsView: View {
                     Text("45")
                 }
                 VStack(alignment: .trailing){
-                    ProgressBar(value: 45.0).frame(height: 12)
-                    ProgressBar(value: 60.0).frame(height: 12)
-                    ProgressBar(value: 45.0).frame(height: 12)
-                    ProgressBar(value: 45.0).frame(height: 12)
-                    ProgressBar(value: 45.0).frame(height: 12)
-                    ProgressBar(value: 45.0).frame(height: 12)
+                    ProgressBar(value: 45.0).frame(height: 12).environmentObject(detailsViewModel)
+                    ProgressBar(value: 60.0).frame(height: 12).environmentObject(detailsViewModel)
+                    ProgressBar(value: 45.0).frame(height: 12).environmentObject(detailsViewModel)
+                    ProgressBar(value: 45.0).frame(height: 12).environmentObject(detailsViewModel)
+                    ProgressBar(value: 45.0).frame(height: 12).environmentObject(detailsViewModel)
+                    ProgressBar(value: 45.0).frame(height: 12).environmentObject(detailsViewModel)
                 }
             }
             .padding(.horizontal, 8.0)
@@ -284,7 +293,7 @@ struct DetailsView: View {
 
 struct DetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailsView().environmentObject(DetailsViewModel())
+        DetailsView("0", DetailsViewModel()).environmentObject(DetailsViewModel())
     }
 }
 
@@ -361,17 +370,21 @@ struct MoveView_Previews: PreviewProvider {
 }
 
 struct ProgressBar: View {
+    @EnvironmentObject var detailsViewModel: DetailsViewModel
+    
     var value: Float
     
+    
     var body: some View {
+        let colorPKM = detailsViewModel.getColor()
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 Rectangle().frame(width: geometry.size.width, height: geometry.size.height)
                     .opacity(0.3)
-                    .foregroundColor(Color("Fire").opacity(0.4))
+                    .foregroundColor(colorPKM.opacity(0.4))
                 
                 Rectangle().frame(width: min((CGFloat(self.value) * geometry.size.width) / 100, geometry.size.width), height: geometry.size.height)
-                    .foregroundColor(Color("Fire"))
+                    .foregroundColor(colorPKM)
                     .animation(.linear)
             }.cornerRadius(45.0)
         }
@@ -396,3 +409,71 @@ struct ProgressBar: View {
 //            }
 //            Text(detailsViewModel.pokemonDetailsList.id)
 //            Text(detailsViewModel.pokemonDetailsList.types)
+
+
+
+//                switch type {
+//                case "bug":
+//                    Color("Bug")
+//                        .ignoresSafeArea()
+//                case "dark":
+//                    Color("Dark")
+//                        .ignoresSafeArea()
+//                case "dragon":
+//                    Color("Dragon")
+//                        .ignoresSafeArea()
+//                case "eletric":
+//                    Color("Eletric")
+//                        .ignoresSafeArea()
+//                case "fairy":
+//                    Color("Fairy")
+//                        .ignoresSafeArea()
+//                case "fighting":
+//                    Color("Fighting")
+//                        .ignoresSafeArea()
+//                case "fire":
+//                    Color("Fire")
+//                        .ignoresSafeArea()
+//                case "flying":
+//                    Color("Flying")
+//                        .ignoresSafeArea()
+//                case "ghost":
+//                    Color("Ghost")
+//                        .ignoresSafeArea()
+//                case "grass":
+//                    Color("Grass")
+//                        .ignoresSafeArea()
+//                case "ground":
+//                    Color("Ground")
+//                        .ignoresSafeArea()
+//                case "ice":
+//                    Color("Ice")
+//                        .ignoresSafeArea()
+//                case "normal":
+//                    Color("Normal")
+//                        .ignoresSafeArea()
+//                case "poison":
+//                    Color("Poison")
+//                        .ignoresSafeArea()
+//                case "psychic":
+//                    Color("Psychic")
+//                        .ignoresSafeArea()
+//                case "rock":
+//                    Color("Rock")
+//                        .ignoresSafeArea()
+//                case "shadow":
+//                    Color("Shadow")
+//                        .ignoresSafeArea()
+//                case "steel":
+//                    Color("Steel")
+//                        .ignoresSafeArea()
+//                case "unknown":
+//                    Color("Unknown")
+//                        .ignoresSafeArea()
+//                case "water":
+//                    Color("Water")
+//                        .ignoresSafeArea()
+//                default:
+//                    Color("Background")
+//                        .ignoresSafeArea()
+//                }

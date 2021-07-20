@@ -52,7 +52,7 @@ struct ContentView: View {
                 let pokemon = self.homeViewModel.pokemonList[index]
                 let id = self.homeViewModel.extractIdFromPokemon(urlPokemon: pokemon.url)
                 
-                CardListComponent(detailsViewModel: DetailsViewModel(), pokedexNumber: id, pokemonName: pokemon.name, index: index + 1)
+                CardListComponent(pokedexNumber: id, pokemonName: pokemon.name, index: index + 1)
                     .onAppear {
                         if self.homeViewModel.pokemonList.last == pokemon {
                             print("ultimo")
@@ -64,8 +64,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(homeViewModel: HomeViewModel())
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView(homeViewModel: HomeViewModel())
+//    }
+//}
