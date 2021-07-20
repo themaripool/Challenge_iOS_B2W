@@ -12,11 +12,9 @@ import Combine
 class HomeViewModel: ObservableObject, Identifiable {
 
     @Published var pokemonList              : [Pokemon] = []
-    //@Published var pokemonDetailsList       :Details?//: [Details]?
     
     init() {
         getPokemons()
-        //getPokemonsDetails()
     }
     
     public func reloadData() {
@@ -35,10 +33,9 @@ class HomeViewModel: ObservableObject, Identifiable {
     public func extractIdFromPokemon(urlPokemon:String) -> String{
         
         if let range = urlPokemon.range(of: "/pokemon/") {
-            let phone = urlPokemon[range.upperBound...]
-            var num = phone.replacingOccurrences(of: "/", with: "", options: .literal, range: nil)
-            print("testeee \(num)")
-            return num
+            let pkmNumber = urlPokemon[range.upperBound...]
+            let number = pkmNumber.replacingOccurrences(of: "/", with: "", options: .literal, range: nil)
+            return number
         }
         return "0"
     }
@@ -53,22 +50,5 @@ class HomeViewModel: ObservableObject, Identifiable {
             }
         }
     }
-    
-//    func getPokemonsDetails(index: Int){
-//        PokemonService.getDetailsPokemons(id: 1) { results, error  in
-//            if results != nil {
-//                self.pokemonDetailsList = results
-//                print("[DEBUG]: RES = \(String(describing: results))")
-//                //self.movieView?.setPopularListView(results)
-//            } else{
-//                print("[DEBUG] no results no details")
-//            }
-//        }
-//    }
- 
 }
-extension Array where Element: Equatable {
-    func indexes(of element: Element) -> [Int] {
-        return self.enumerated().filter({ element == $0.element }).map({ $0.offset })
-    }
-}
+

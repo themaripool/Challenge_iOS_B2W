@@ -18,15 +18,17 @@ struct DetailsView: View {
     var body: some View {
         ZStack(alignment: .top, content: {
             
-            VStack {
+            ScrollView {
                 PokemonHeader
-                ScrollView {
+                VStack {
                     PokemonStats
                     PokemonAbilities
                     PokemonEvolutions
                     PokemonMoves
                 }
-            }.navigationBarItems(
+            }.edgesIgnoringSafeArea(.all)
+            //.listStyle(PlainListStyle())
+            .navigationBarItems(
                 leading: leftButton
             )
         })
@@ -76,6 +78,7 @@ struct DetailsView: View {
                             .font(.custom("Arial", size: 16))
                             .fontWeight(.bold)
                             .foregroundColor(.white)
+                        
                     }.padding(.bottom, 32)
                     
                     
@@ -89,11 +92,16 @@ struct DetailsView: View {
                         }
                         .resizable()
                         .padding(.top, 8.0)
+                        .padding(.bottom, 8.0)
                         .frame(width: 170, height: 140)
+                    
+                    
                 }
+                .padding(.top, 56.0)
                 .padding(.horizontal, 8.0)
                 
-            }.frame(width: UIScreen.main.bounds.width, height: 310)
+                
+            }.frame(width: UIScreen.main.bounds.width, height: 300)
         }
     }
     
@@ -128,6 +136,7 @@ struct DetailsView: View {
                 }
             }
             .padding(.horizontal, 8.0)
+            .padding(.top, 16)
         }
         
     }
@@ -180,7 +189,6 @@ struct DetailsView: View {
                     .font(.custom("Arial", size: 28))
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.leading)
-                    .padding(.vertical, 8.0)
                 HStack{
                     VStack(alignment: .center){
                         
@@ -254,6 +262,14 @@ struct DetailsView: View {
                             MoveView()
                            }
                     )
+                    
+                    Spacer()
+                    
+                    Image("normal")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.black)
+                    
                 }
                 
                 

@@ -25,20 +25,24 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                pokemonList
-            }
-            //Text("Teste")
-            .navigationBarTitle("Pokedex")
-            .navigationBarItems(trailing:
-                Button(action: {
-                    print("search button was tapped")}
-                ) {
-                Image(systemName: "magnifyingglass")
+            if homeViewModel.pokemonList.isEmpty {
+                
+                HomeLoadingView()
+                
+            }else{
+                List {
+                    pokemonList
                 }
-            )
+                .navigationBarTitle("Pokedex")
+                .navigationBarItems(trailing:
+                    Button(action: {
+                        print("search button was tapped")}
+                    ) {
+                    Image(systemName: "magnifyingglass")
+                    }
+                )
+            }
         }
-        
     }
     
     var pokemonList: some View {
@@ -46,16 +50,16 @@ struct ContentView: View {
             ForEach(self.homeViewModel.pokemonList.indices, id: \.self) { index in
                 
                 let pokemon = self.homeViewModel.pokemonList[index]
-                var id = self.homeViewModel.extractIdFromPokemon(urlPokemon: pokemon.url)
+                let id = self.homeViewModel.extractIdFromPokemon(urlPokemon: pokemon.url)
                 
-                CardListComponent(detailsViewModel: DetailsViewModel(), pokedexNumber: id, pokemonName: pokemon.name, typeString: ["Grass", "Poison"], index: index + 1)
+                CardListComponent(detailsViewModel: DetailsViewModel(), pokedexNumber: id, pokemonName: pokemon.name, index: index + 1)
                     .onAppear {
                         if self.homeViewModel.pokemonList.last == pokemon {
                             print("ultimo")
                             //self.newsViewModel.loadMore()
                         }
                     }
-            }
+            }.listRowBackground(Color.init("Background"))
         }
     }
 }

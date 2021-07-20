@@ -14,26 +14,13 @@ struct CardListComponent: View {
     
     var pokedexNumber: String
     var pokemonName: String
-    var typeString: [String]
+    //var typeString: [String]
     var index: Int
     
     var body: some View {
         
         ZStack {
-            switch typeString.first {
-                case "Grass":
-                    Color("Grass")
-                        .ignoresSafeArea()
-                        .grayscale(0.50)
-                case "Water":
-                    Color("Water")
-                        .ignoresSafeArea()
-                        .grayscale(0.50)
-                default:
-                    Color("Fire")
-                        .ignoresSafeArea()
-                        .grayscale(0.50)
-            }
+            Color.init("Background")
             
             NavigationLink(destination:
                             DetailsView().environmentObject(detailsViewModel).navigationBarHidden(true)
@@ -45,31 +32,15 @@ struct CardListComponent: View {
             
             HStack(alignment: .center, spacing: 16){
                 
-                VStack(alignment: .leading, spacing: 8) {
-                    
-                    Text(pokedexNumber)
-                        .bold()
-                        .font(.subheadline)
-                        .foregroundColor(Color.white)
-                        .padding(.top, 8.0)
-                    
-                    Text(pokemonName)
-                        .font(.caption2)
-                        .foregroundColor(Color.white)
-                    
-                    HStack {
-                        ForEach(typeString, id: \.self) { type in
-                            Text(type)
-                                .font(.caption2)
-                                .padding(8)
-                                .background(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
-                                .clipShape(RoundedRectangle(cornerRadius: 30))
-                            
-                        }
-                        
-                    }.padding(.bottom, 8.0)
-
-                }
+                Text(pokedexNumber)
+                    .bold()
+                    .font(.custom("Arial", size: 32))
+                    .padding(.top, 8.0)
+                
+                Text(pokemonName)
+                    .bold()
+                    .font(.custom("Arial", size: 20))
+                    .foregroundColor(Color.black)
                 
                 Spacer()
                 
@@ -79,7 +50,7 @@ struct CardListComponent: View {
                             .resizable()
                             .renderingMode(.original)
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: UIScreen.main.bounds.width)
+                            .frame(width: 100, height: 80)
                     }
                     .resizable()
                     .frame(width: 100, height: 80)
@@ -90,9 +61,3 @@ struct CardListComponent: View {
         }.cornerRadius(15)
     }
 }
-
-//struct CardListComponent_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CardListComponent(pokedexNumber: "#0001", pokemonName: "Bulbassauro", typeString: ["Poison", "Grass"], index: 0).frame(width: 370, height: 100)
-//    }
-//}
