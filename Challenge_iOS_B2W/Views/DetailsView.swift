@@ -17,15 +17,6 @@ struct DetailsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var pokedexNumber = ""
     
-//    init(_ pokedexNumber: String, _ detailsViewModel: DetailsViewModel) {
-//
-//        self.pokedexNumber = pokedexNumber
-////        self.detailsViewModel = detailsViewModel
-//        print("[DEBUG]: Aqui")
-////        detailsViewModel.getPokemonsDetails(index: Int(pokedexNumber)!)
-//
-//    }
-    
     var body: some View {
         ZStack(alignment: .top, content: {
             
@@ -77,7 +68,7 @@ struct DetailsView: View {
                     HStack(alignment: .center) {
                         
                         ForEach(self.detailsViewModel.pokemonDetailsList.types.indices, id: \.self){ type in
-                            var pkmType = self.detailsViewModel.pokemonDetailsList.types[type].type.name
+                            let pkmType = self.detailsViewModel.pokemonDetailsList.types[type].type.name
                             Text(pkmType)
                                 .font(.custom("Arial", size: 16))
                                 .foregroundColor(.white)
@@ -155,29 +146,41 @@ struct DetailsView: View {
         
         return Group {
             
+            let colorPKM = detailsViewModel.getColor()
+            
             VStack(alignment: .leading) {
                 Text("Abilities")
-                    .font(.custom("Arial", size: 28))
+                    .font(.custom("Arial", size: 26))
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.leading)
                     .padding(.vertical, 8.0)
+                
                 HStack(){
-                    Button(action: {
-                        showingSheet.toggle()
-                    }){
-                        Text("Blaze").font(.custom("Arial", size: 26))
-                            .foregroundColor(.black)
+                    
+                    ForEach (self.detailsViewModel.pokemonDetailsList.abilities.indices, id: \.self){ index in
+                        let abilities = self.detailsViewModel.pokemonDetailsList.abilities[index]
+                       
+                        var id = "0"
+                        Button(action: {
+                            id = self.detailsViewModel.extractAbilityId(urlAbility: abilities.ability.url)
+                            detailsViewModel.getAbilityDetails(index: Int(id)! )
+                            showingSheet.toggle()
+                        }){
+                            Text(abilities.ability.name.capitalized).font(.custom("Arial", size: 21))
+                                .foregroundColor(colorPKM)
+                                .fontWeight(.semibold)
+                        }
+                        .sheet(isPresented: $showingSheet,
+                               onDismiss: {self.detailsViewModel.refreshAbilities()},
+                               content: {
+                                AbilityId()
+                                    .environmentObject(detailsViewModel)
+                                    .onAppear(){
+                                    }
+                               }
+                        )
+                        Spacer()
                     }
-                    .sheet(isPresented: $showingSheet,
-                           onDismiss: {
-                            print("teste")
-                           },
-                           content: {
-                            SheetView()
-                           }
-                    )
-                    Spacer()
-                    Text("Solar Power").font(.custom("Arial", size: 26))
                 }
                 .padding()
             }
@@ -298,12 +301,25 @@ struct DetailsView_Previews: PreviewProvider {
     }
 }
 
-struct SheetView: View {
-    
+struct AbilityId: View {
+    @EnvironmentObject var detailsViewModel: DetailsViewModel
     var body: some View {
-        Text("Tela de sheet")
-            .font(.title)
-            .padding()
+        if detailsViewModel.pokemonAbilityDetails.effect_entries.first?.effect == nil {
+            ProgressView()
+        } else {
+            var text = detailsViewModel.pokemonAbilityDetails.effect_entries.first?.language.name == "en" ? detailsViewModel.pokemonAbilityDetails.effect_entries.first!.effect : detailsViewModel.pokemonAbilityDetails.effect_entries[1].effect
+            
+            Text(text ?? "")
+                .font(.custom("Arial", size: 20))
+                .foregroundColor(.black)
+                .padding(.all, 8)
+        }
+    }
+}
+
+struct AbilityId_Previews: PreviewProvider {
+    static var previews: some View {
+        AbilityId().environmentObject(DetailsViewModel())
     }
 }
 

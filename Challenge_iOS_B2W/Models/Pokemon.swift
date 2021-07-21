@@ -16,14 +16,8 @@ struct Root : Decodable {
 
 struct Pokemon: Codable, Hashable {
     var name                : String
-    var url                 : String//[Details]
+    var url                 : String
 }
-
-//struct PokemonDetails: Decodable{
-//    var details             :[Details]
-//    
-//}
-
 struct Details: Codable {
     var id                  : Int
     var stats               : [Stats]
@@ -51,6 +45,20 @@ struct Abilities : Codable {
 }
 
 struct Ability : Codable {
+    var name                : String
+    var url                 : String
+}
+
+struct AbilityDetail: Codable {
+    var effect_entries      : [AbilityDescription]
+}
+
+struct AbilityDescription: Codable {
+    var effect              : String
+    var language            : AbilityDescriptionLanguage
+}
+
+struct AbilityDescriptionLanguage : Codable {
     var name                : String
     var url                 : String
 }

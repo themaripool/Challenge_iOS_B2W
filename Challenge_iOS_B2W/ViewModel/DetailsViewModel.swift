@@ -10,11 +10,26 @@ import SwiftUI
 
 class DetailsViewModel: ObservableObject{
 
-    @Published var pokemonDetailsList  :Details = Details(id: 0, stats: [], abilities: [], types: [], name: "")
+    @Published var pokemonDetailsList       : Details = Details(id: 0, stats: [], abilities: [], types: [], name: "")
+    @Published var pokemonAbilityDetails    : AbilityDetail = AbilityDetail(effect_entries: [])
     var color: Color = Color.white
     
     init() {
         color = getColor()
+    }
+    
+    public func extractAbilityId(urlAbility:String) -> String{
+        
+        if let range = urlAbility.range(of: "/ability/") {
+            let abilityId = urlAbility[range.upperBound...]
+            let abId = abilityId.replacingOccurrences(of: "/", with: "", options: .literal, range: nil)
+            return abId
+        }
+        return "0"
+    }
+    
+    func refreshAbilities(){
+        pokemonAbilityDetails = AbilityDetail(effect_entries: [])
     }
     
     func getColor() -> Color {
@@ -73,6 +88,18 @@ class DetailsViewModel: ObservableObject{
             if results != nil {
                 self.pokemonDetailsList = results
                // print("[DEBUG]: RES = \(String(describing: results))")
+                //self.movieView?.setPopularListView(results)
+            } else{
+                print("[DEBUG] no results no details")
+            }
+        }
+    }
+    
+    func getAbilityDetails(index: Int){
+        PokemonService.getPokemonAbility(id: index) { results, error  in
+            if results != nil {
+                self.pokemonAbilityDetails = results
+                print("[DEBUG]: RES = \(String(describing: results))")
                 //self.movieView?.setPopularListView(results)
             } else{
                 print("[DEBUG] no results no details")

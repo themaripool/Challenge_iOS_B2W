@@ -37,7 +37,7 @@ struct CardListComponent: View {
                     .font(.custom("Arial", size: 32))
                     .padding(.top, 8.0)
                 
-                Text(pokemonName)
+                Text(pokemonName.capitalized)
                     .bold()
                     .font(.custom("Arial", size: 20))
                     .foregroundColor(Color.black)

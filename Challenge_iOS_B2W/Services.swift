@@ -58,6 +58,30 @@ class PokemonService: NSObject {
             }
         }
     
+    static func getPokemonAbility(id: Int, completion: @escaping (AbilityDetail, Error?) -> Void){
+        
+        let url = "https://pokeapi.co/api/v2/ability/\(id)/"
+            
+        var abDetail : AbilityDetail = AbilityDetail(effect_entries: [])
+            
+            AF.request(url).responseData { response in
+                switch response.result {
+                case .failure(let error):
+                    print(error)
+                case .success(let data):
+                    do {
+                        let root = try JSONDecoder().decode(AbilityDetail.self, from: data)
+                        abDetail = root
+                        completion(abDetail, nil)
+                    } catch let error {
+                        completion(AbilityDetail(effect_entries: []), error)
+                        print(error)
+                    }
+                    
+                }
+            }
+        }
+    
 }
 
 
