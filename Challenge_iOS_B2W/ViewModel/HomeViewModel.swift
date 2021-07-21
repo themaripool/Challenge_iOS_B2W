@@ -11,15 +11,17 @@ import Combine
 
 class HomeViewModel: ObservableObject, Identifiable {
 
-    @Published var pokemonList           : [Pokemon] = []
-    @Published var nextPage              : String = ""
+    @Published var pokemonList                  : [Pokemon] = []
+    @Published var nextPage                     : String = ""
+    @Published var pokemonListAux               : [Pokemon] = []
     
     init() {
         getPokemons()
     }
     
     public func reloadData() {
-        
+        pokemonList = pokemonListAux
+        pokemonListAux = []
     }
     
     public func loadMore() {

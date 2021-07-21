@@ -11,6 +11,7 @@ import Kingfisher
 struct DetailsView: View {
     
     @EnvironmentObject var detailsViewModel: DetailsViewModel
+    @EnvironmentObject var homeViewModel: HomeViewModel
     @State private var showingSheet = false
     @State private var showingMove = false
     //@ObservedObject var detailsViewModel: DetailsViewModel
@@ -42,6 +43,7 @@ struct DetailsView: View {
                 .foregroundColor(.white)
                 .frame(width: 20, height: 20)
                 .onTapGesture {
+                    self.homeViewModel.reloadData()
                     self.presentationMode.wrappedValue.dismiss()
                 }
         }

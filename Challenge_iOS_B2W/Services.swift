@@ -108,6 +108,31 @@ class PokemonService: NSObject {
             }
         }
     
+    static func getPokemonSearchy(search: String, completion: @escaping (Details, Error?) -> Void){
+        
+        let url = "https://pokeapi.co/api/v2/pokemon/\(search)/"
+        print("\(search) \(url)")
+            
+        var pokemonAux : Details = Details(id: 0, stats: [], abilities: [], types: [], name: "")
+            
+            AF.request(url).responseData { response in
+                switch response.result {
+                case .failure(let error):
+                    print(error)
+                case .success(let data):
+                    do {
+                        let root = try JSONDecoder().decode(Details.self, from: data)
+                        pokemonAux = root
+                        completion(pokemonAux, nil)
+                    } catch let error {
+                        completion(Details(id: 0, stats: [], abilities: [], types: [], name: ""), error)
+                        print(error)
+                    }
+                    
+                }
+            }
+        }
+    
 }
 
 

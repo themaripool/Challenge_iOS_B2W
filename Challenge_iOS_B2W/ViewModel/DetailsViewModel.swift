@@ -12,6 +12,8 @@ class DetailsViewModel: ObservableObject{
 
     @Published var pokemonDetailsList       : Details = Details(id: 0, stats: [], abilities: [], types: [], name: "")
     @Published var pokemonAbilityDetails    : AbilityDetail = AbilityDetail(effect_entries: [])
+    @Published var pokemonSearched          = Details(id: 0, stats: [], abilities: [], types: [], name: "")
+
     var color: Color = Color.white
     
     init() {
@@ -103,6 +105,16 @@ class DetailsViewModel: ObservableObject{
                 //self.movieView?.setPopularListView(results)
             } else{
                 print("[DEBUG] no results no details")
+            }
+        }
+    }
+    
+    func getPokemonsSearch(search: String){
+        PokemonService.getPokemonSearchy(search: search ) { results, error  in
+            if results != nil {
+                self.pokemonSearched = results
+            } else{
+                print("[DEBUG] no results")
             }
         }
     }
