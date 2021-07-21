@@ -8,9 +8,8 @@
 import Foundation
 
 struct Root : Decodable {
-    let count               : Int?
-   // let next                : Int?
-   // let previous            : Int?
+    let count               : Int
+    let next                : String
     let results             : [Pokemon]
 }
 

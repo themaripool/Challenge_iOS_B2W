@@ -11,7 +11,8 @@ import Combine
 
 class HomeViewModel: ObservableObject, Identifiable {
 
-    @Published var pokemonList              : [Pokemon] = []
+    @Published var pokemonList           : [Pokemon] = []
+    @Published var nextPage              : String = ""
     
     init() {
         getPokemons()
@@ -22,12 +23,11 @@ class HomeViewModel: ObservableObject, Identifiable {
     }
     
     public func loadMore() {
-        self.loadPokemons(nextPage: true)
+        self.loadPokemons(prox: true)
     }
     
-    public func loadPokemons(nextPage: Bool = false) {
-        
-        
+    public func loadPokemons(prox: Bool = false) {
+        getNextPokemons(pageUrl: nextPage)
     }
     
     public func extractIdFromPokemon(urlPokemon:String) -> String{
@@ -42,9 +42,20 @@ class HomeViewModel: ObservableObject, Identifiable {
 
     //MARK: Services calls
     func getPokemons(){
-        PokemonService.getAllPokemons { results, error  in
+        PokemonService.getAllPokemons { results, page, error  in
             if results != [] {
+                self.nextPage = page
                 self.pokemonList = results
+            } else{
+                print("[DEBUG] no results")
+            }
+        }
+    }
+    func getNextPokemons(pageUrl: String){
+        PokemonService.getNextAllPokemons(pageUrl: pageUrl) { results, page, error  in
+            if results != [] {
+                self.nextPage = page
+                self.pokemonList.append(contentsOf: results)
             } else{
                 print("[DEBUG] no results")
             }

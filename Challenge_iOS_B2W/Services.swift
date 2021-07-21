@@ -10,10 +10,11 @@ import Alamofire
 
 class PokemonService: NSObject {
 
-    static func getAllPokemons(completion: @escaping ([Pokemon], Error?) -> Void){
+    static func getAllPokemons(completion: @escaping ([Pokemon], String, Error?) -> Void){
             let url = "https://pokeapi.co/api/v2/pokemon/"
             
             var pokemonList : [Pokemon] = []
+            var nextPage = ""
             
             AF.request(url).responseData { response in
                 switch response.result {
@@ -23,9 +24,34 @@ class PokemonService: NSObject {
                     do {
                         let root = try JSONDecoder().decode(Root.self, from: data)
                         pokemonList = root.results
-                        completion(pokemonList, nil)
+                        nextPage = root.next
+                        completion(pokemonList, nextPage , nil)
                     } catch let error {
-                        completion([], error)
+                        completion([], "", error)
+                        print(error)
+                    }
+                    
+                }
+            }
+        }
+    
+    static func getNextAllPokemons(pageUrl: String, completion: @escaping ([Pokemon], String, Error?) -> Void){
+            
+            var pokemonList : [Pokemon] = []
+            var nextPage = ""
+            
+            AF.request(pageUrl).responseData { response in
+                switch response.result {
+                case .failure(let error):
+                    print(error)
+                case .success(let data):
+                    do {
+                        let root = try JSONDecoder().decode(Root.self, from: data)
+                        pokemonList = root.results
+                        nextPage = root.next
+                        completion(pokemonList,nextPage, nil)
+                    } catch let error {
+                        completion([], "", error)
                         print(error)
                     }
                     

@@ -56,7 +56,7 @@ struct ContentView: View {
                     .onAppear {
                         if self.homeViewModel.pokemonList.last == pokemon {
                             print("ultimo")
-                            //self.newsViewModel.loadMore()
+                            self.homeViewModel.loadMore()
                         }
                     }
             }.listRowBackground(Color.init("Background"))
