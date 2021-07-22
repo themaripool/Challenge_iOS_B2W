@@ -43,13 +43,13 @@ struct ContentView: View {
                 let pokemon = self.homeViewModel.pokemonList[index]
                 let id = self.homeViewModel.extractIdFromPokemon(urlPokemon: pokemon.url)
                 
-                var _ = print("index \(index) e id \(id) e url \(pokemon.url)")
+               // var _ = print("index \(index) e id \(id) e url \(pokemon.url)")
                 
                 CardListComponent(detailsViewModel: DetailsViewModel(), pokedexNumber: id, pokemonName: pokemon.name, index: index + 1).environmentObject(homeViewModel)
                     .onAppear {
                         if self.homeViewModel.pokemonList.last == pokemon {
                             print("ultimo")
-                            self.homeViewModel.loadMore()
+                            //self.homeViewModel.loadMore() -> n espera chegar no ultimo
                         }
                     }
             }.listRowBackground(Color.init("Background"))
@@ -89,16 +89,17 @@ struct SearchBar: UIViewRepresentable {
 
         func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 
-            var pokemonSearched = Details(id: 0, stats: [], abilities: [], types: [], name: "")
             self.detailsViewModel.getPokemonsSearch(search: text)
             UIApplication.shared.endEditing()
 
             PokemonService.getPokemonSearchy(search: text ) { results, error  in
                 if results != nil {
-                    print("id = \(results.id)")
                     self.homeViewModel.pokemonListAux = self.homeViewModel.pokemonList
                     self.homeViewModel.pokemonList = []
-                    self.homeViewModel.pokemonList.append(Pokemon(name: results.name, url: "https://pokeapi.co/api/v2/pokemon/\(results.id)/"))
+                    guard let name = results?.name, let id = results?.id else {
+                        return
+                    }
+                    self.homeViewModel.pokemonList.append(Pokemon(name: name, url: "https://pokeapi.co/api/v2/pokemon/\(id)/"))
                 } else{
                     print("[DEBUG] no results")
                 }

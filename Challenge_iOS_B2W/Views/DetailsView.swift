@@ -21,17 +21,21 @@ struct DetailsView: View {
     var body: some View {
         ZStack(alignment: .top, content: {
             
-            ScrollView {
-                PokemonHeader
-                VStack {
-                    PokemonStats
-                    PokemonAbilities
-                    PokemonEvolutions
-                    PokemonMoves
-                }
-            }.edgesIgnoringSafeArea(.all)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: self.barBackButton)
+            if (detailsViewModel.pokemonChain.chain.evolves_to.isEmpty){
+                HomeLoadingView()
+            }else{
+                ScrollView {
+                    PokemonHeader
+                    VStack {
+                        PokemonStats
+                        PokemonAbilities
+                        PokemonEvolutions
+                        PokemonMoves
+                    }
+                }.edgesIgnoringSafeArea(.all)
+                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(leading: self.barBackButton)
+            }
         })
     }
     
@@ -43,7 +47,7 @@ struct DetailsView: View {
                 .foregroundColor(.white)
                 .frame(width: 20, height: 20)
                 .onTapGesture {
-                    self.homeViewModel.reloadData()
+                    //self.homeViewModel.reloadData() -> ver bug do carregamento eterno
                     self.presentationMode.wrappedValue.dismiss()
                 }
         }
@@ -51,9 +55,7 @@ struct DetailsView: View {
     }
     
     var PokemonHeader: some View {
-        
-//        var type = self.detailsViewModel.pokemonDetailsList.types.first?.type.name
-        
+            
         return Group {
             
             ZStack{
@@ -201,53 +203,35 @@ struct DetailsView: View {
             
             VStack(alignment: .leading) {
                 Text("Evolutions")
-                    .font(.custom("Arial", size: 28))
+                    .font(.custom("Arial", size: 26))
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.leading)
                 HStack{
-                    VStack(alignment: .center){
+                    ForEach (detailsViewModel.ids.indices) { indice in
+                        VStack(alignment: .center){
+                            var id = detailsViewModel.ids[indice]
+                            var name = detailsViewModel.names[indice]
+                            KFImage(URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!)
+                                .placeholder {
+                                    Image(uiImage: UIImage(named: "placeholder")!)
+                                        .resizable()
+                                        .renderingMode(.original)
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 50, height: 40)
+                                }
+                                .resizable()
+                                .padding(.top, 8.0)
+                                .frame(width: 90, height: 90)
+                            
+                            Text(name).font(.custom("Arial", size: 16))
+                        }
                         
-                        KFImage(URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png")!)
-                            .placeholder {
-                                Image(uiImage: UIImage(named: "placeholder")!)
-                                    .resizable()
-                                    .renderingMode(.original)
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 50, height: 40)
-                            }
-                            .resizable()
-                            .padding(.top, 8.0)
-                            .frame(width: 100, height: 90)
-                        
-                        Text("Charmeleon").font(.custom("Arial", size: 16))
-                        
-                    }
-                    
-                    Spacer()
-                    
-                    VStack(alignment: .center){
-                        
-                        KFImage(URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png")!)
-                            .placeholder {
-                                Image(uiImage: UIImage(named: "placeholder")!)
-                                    .resizable()
-                                    .renderingMode(.original)
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 50, height: 40)
-                            }
-                            .resizable()
-                            .padding(.top, 8.0)
-                            .frame(width: 100, height: 90)
-                        
-                        Text("Charizard").font(.custom("Arial", size: 16))
-                        
+                        Spacer()
                     }
                 }
                 .padding()
             }
             .padding(.horizontal, 8.0)
-            
-            
         }
         
     }
@@ -309,9 +293,9 @@ struct AbilityId: View {
         if detailsViewModel.pokemonAbilityDetails.effect_entries.first?.effect == nil {
             ProgressView()
         } else {
-            var text = detailsViewModel.pokemonAbilityDetails.effect_entries.first?.language.name == "en" ? detailsViewModel.pokemonAbilityDetails.effect_entries.first!.effect : detailsViewModel.pokemonAbilityDetails.effect_entries[1].effect
+            let text = detailsViewModel.pokemonAbilityDetails.effect_entries.first?.language.name == "en" ? detailsViewModel.pokemonAbilityDetails.effect_entries.first!.effect : detailsViewModel.pokemonAbilityDetails.effect_entries[1].effect
             
-            Text(text ?? "")
+            Text(text)
                 .font(.custom("Arial", size: 20))
                 .foregroundColor(.black)
                 .padding(.all, 8)

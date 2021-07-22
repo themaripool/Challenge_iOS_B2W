@@ -17,9 +17,11 @@ class HomeViewModel: ObservableObject, Identifiable {
     
     init() {
         getPokemons()
+        //bug na volta do dismiss, talvez esteja relacionado ao fato do pokemon list n estar vazio
     }
     
     public func reloadData() {
+        pokemonList = []
         pokemonList = pokemonListAux
         pokemonListAux = []
     }

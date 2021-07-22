@@ -60,11 +60,9 @@ class PokemonService: NSObject {
         }
     
     
-    static func getDetailsPokemons(id: Int, completion: @escaping (Details, Error?) -> Void){
+    static func getDetailsPokemons(id: Int, completion: @escaping (Details?, Error?) -> Void){
         
             let url = "https://pokeapi.co/api/v2/pokemon/\(id)/"
-            
-        var pokemonDetailsList : Details = Details(id: 0, stats: [], abilities: [], types: [], name: "")
             
             AF.request(url).responseData { response in
                 switch response.result {
@@ -73,10 +71,10 @@ class PokemonService: NSObject {
                 case .success(let data):
                     do {
                         let root = try JSONDecoder().decode(Details.self, from: data)
-                        pokemonDetailsList = root
+                        let pokemonDetailsList = root
                         completion(pokemonDetailsList, nil)
                     } catch let error {
-                        completion(Details(id: 0, stats: [], abilities: [], types: [], name: ""), error)
+                        completion(nil, error)
                         print(error)
                     }
                     
@@ -108,13 +106,11 @@ class PokemonService: NSObject {
             }
         }
     
-    static func getPokemonSearchy(search: String, completion: @escaping (Details, Error?) -> Void){
+    static func getPokemonSearchy(search: String, completion: @escaping (Details?, Error?) -> Void){
         
         let url = "https://pokeapi.co/api/v2/pokemon/\(search)/"
         print("\(search) \(url)")
-            
-        var pokemonAux : Details = Details(id: 0, stats: [], abilities: [], types: [], name: "")
-            
+                        
             AF.request(url).responseData { response in
                 switch response.result {
                 case .failure(let error):
@@ -122,16 +118,62 @@ class PokemonService: NSObject {
                 case .success(let data):
                     do {
                         let root = try JSONDecoder().decode(Details.self, from: data)
-                        pokemonAux = root
+                        let pokemonAux = root
                         completion(pokemonAux, nil)
                     } catch let error {
-                        completion(Details(id: 0, stats: [], abilities: [], types: [], name: ""), error)
+                        completion(nil, error)
                         print(error)
                     }
                     
                 }
             }
         }
+    
+    static func getSpecies(id: Int, completion: @escaping (spChain?, Error?) -> Void){
+        
+        let url = "https://pokeapi.co/api/v2/pokemon-species/\(id)/"
+        
+        AF.request(url).responseData { response in
+            switch response.result {
+            case .failure(let error):
+                print(error)
+            case .success(let data):
+                do {
+                    let root = try JSONDecoder().decode(spChain.self, from: data)
+                    let aux = root
+                    completion(aux, nil)
+                } catch let error {
+                    completion(nil, error)
+                    print(error)
+                }
+                
+            }
+        }
+    }
+    
+    //https://pokeapi.co/api/v2/evolution-chain/{id}/
+    
+    static func getEvolutionChain(id: String, completion: @escaping (Chain?, Error?) -> Void){
+        
+        let url = "https://pokeapi.co/api/v2/evolution-chain/\(id)/"
+        
+        AF.request(url).responseData { response in
+            switch response.result {
+            case .failure(let error):
+                print(error)
+            case .success(let data):
+                do {
+                    let root = try JSONDecoder().decode(Chain.self, from: data)
+                    let aux = root
+                    completion(aux, nil)
+                } catch let error {
+                    completion(nil, error)
+                    print(error)
+                }
+                
+            }
+        }
+    }
     
 }
 
