@@ -162,17 +162,18 @@ class DetailsViewModel: ObservableObject{
             ids.append(id)
             names.append((self.pokemonChain.chain.species.name))
         }
-        if !self.pokemonChain.chain.evolves_to.isEmpty {
-            let id = self.extractSpeciesId(urlSpecies: self.pokemonChain.chain.evolves_to.first?.species.url ?? "")
+        for element in self.pokemonChain.chain.evolves_to {
+            
+            let id = self.extractSpeciesId(urlSpecies: element.species.url)
             if id != "0" {
                 ids.append(id)
-                names.append((self.pokemonChain.chain.evolves_to.first?.species.name)!)
+                names.append((element.species.name))
             }
-            if !self.pokemonChain.chain.evolves_to[0].evolves_to.isEmpty{
-                let id = self.extractSpeciesId(urlSpecies: self.pokemonChain.chain.evolves_to[0].evolves_to.first?.species.url ?? "")
+            if !element.evolves_to.isEmpty {
+                let id = self.extractSpeciesId(urlSpecies: element.evolves_to.first?.species.url ?? "")
                 if id != "0" {
                     ids.append(id)
-                    names.append((self.pokemonChain.chain.evolves_to[0].evolves_to.first?.species.name)!)
+                    names.append((element.evolves_to.first?.species.name)!)
                 }
             }
         }

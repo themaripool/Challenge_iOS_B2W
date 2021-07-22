@@ -47,7 +47,7 @@ struct ContentView: View {
                 
                 CardListComponent(detailsViewModel: DetailsViewModel(), pokedexNumber: id, pokemonName: pokemon.name, index: index + 1).environmentObject(homeViewModel)
                     .onAppear {
-                        if self.homeViewModel.pokemonList.last == pokemon {
+                        if self.homeViewModel.pokemonList.last == pokemon && self.homeViewModel.pokemonList.count != 1{
                             print("ultimo")
                             //self.homeViewModel.loadMore() -> n espera chegar no ultimo
                         }

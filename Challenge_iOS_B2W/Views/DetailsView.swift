@@ -158,8 +158,9 @@ struct DetailsView: View {
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.leading)
                     .padding(.vertical, 8.0)
+            
                 
-                HStack(){
+                VStack(){
                     
                     ForEach (self.detailsViewModel.pokemonDetailsList.abilities.indices, id: \.self){ index in
                         let abilities = self.detailsViewModel.pokemonDetailsList.abilities[index]
@@ -183,8 +184,8 @@ struct DetailsView: View {
                                     }
                                }
                         )
-                        Spacer()
                     }
+                    Spacer()
                 }
                 .padding()
             }
@@ -206,30 +207,61 @@ struct DetailsView: View {
                     .font(.custom("Arial", size: 26))
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.leading)
-                HStack{
-                    ForEach (detailsViewModel.ids.indices) { indice in
-                        VStack(alignment: .center){
-                            var id = detailsViewModel.ids[indice]
-                            var name = detailsViewModel.names[indice]
-                            KFImage(URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!)
-                                .placeholder {
-                                    Image(uiImage: UIImage(named: "placeholder")!)
-                                        .resizable()
-                                        .renderingMode(.original)
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 50, height: 40)
-                                }
-                                .resizable()
-                                .padding(.top, 8.0)
-                                .frame(width: 90, height: 90)
+                
+                if detailsViewModel.ids.count > 3{
+                    
+                    VStack{
+                        ForEach (detailsViewModel.ids.indices) { indice in
+                            HStack(){
+                                let id = detailsViewModel.ids[indice]
+                                let name = detailsViewModel.names[indice]
+                                KFImage(URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!)
+                                    .placeholder {
+                                        Image(uiImage: UIImage(named: "placeholder")!)
+                                            .resizable()
+                                            .renderingMode(.original)
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 50, height: 40)
+                                    }
+                                    .resizable()
+                                    .padding(.top, 8.0)
+                                    .frame(width: 90, height: 90)
+                                
+                                Text(name).font(.custom("Arial", size: 16))
+                            }
                             
-                            Text(name).font(.custom("Arial", size: 16))
+                            Spacer()
                         }
-                        
-                        Spacer()
                     }
+                    .padding()
+                    
+                    
+                }else {
+                    HStack{
+                        ForEach (detailsViewModel.ids.indices) { indice in
+                            VStack(alignment: .center){
+                                let id = detailsViewModel.ids[indice]
+                                let name = detailsViewModel.names[indice]
+                                KFImage(URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!)
+                                    .placeholder {
+                                        Image(uiImage: UIImage(named: "placeholder")!)
+                                            .resizable()
+                                            .renderingMode(.original)
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 50, height: 40)
+                                    }
+                                    .resizable()
+                                    .padding(.top, 8.0)
+                                    .frame(width: 90, height: 90)
+                                
+                                Text(name).font(.custom("Arial", size: 16))
+                            }
+                            
+                            Spacer()
+                        }
+                    }
+                    .padding()
                 }
-                .padding()
             }
             .padding(.horizontal, 8.0)
         }
