@@ -26,18 +26,18 @@ struct Details: Codable {
     var species             : Species
 }
 
-//detalhes insere a url da especie
-// dentro de specie tem o id da especie - preciso pegar o id da url pra tacar no enpoint do especie //ok
-// dentro do endpoint da specie tem o evolution chain - url com id // ok
-// pegar o id e tacar no endpointo do evolution chain
-
 struct Species: Codable {
     var name                : String
     var url                 : String // evolution chain
 }
 
-struct spChain: Codable {
+struct PokemonSpecies: Codable {
     var evolution_chain     : Evolution_Chain
+    var varieties           : [Varieties]
+}
+
+struct Varieties: Codable {
+    var pokemon             : Pokemon
 }
 
 struct Evolution_Chain: Codable {

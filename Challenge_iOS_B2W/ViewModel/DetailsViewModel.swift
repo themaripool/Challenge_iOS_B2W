@@ -13,13 +13,14 @@ class DetailsViewModel: ObservableObject{
     @Published var pokemonDetailsList       : Details = Details(id: 0, stats: [], abilities: [], types: [], name: "", species: Species(name: "", url: ""))
     @Published var pokemonAbilityDetails    : AbilityDetail = AbilityDetail(effect_entries: [])
     @Published var pokemonSearched          = Details(id: 0, stats: [], abilities: [], types: [], name: "", species: Species(name: "", url: ""))
-    @Published var pokemonEvChain           : spChain = spChain(evolution_chain: Evolution_Chain(url: ""))
+    @Published var pokemonEvChain           : PokemonSpecies = PokemonSpecies(evolution_chain: Evolution_Chain(url: ""), varieties: [])
     @Published var pokemonChain             : Chain = Chain(chain: EvolvesTo(species: Species(name: "", url: ""), evolves_to: []))
     
     public var SpeciesId = ""
     public var ChainId = ""
     public var ids : [String] = []
     public var names : [String] = []
+    public var hasVarieties = false
 
     var color: Color = Color.white
     
@@ -133,6 +134,8 @@ class DetailsViewModel: ObservableObject{
                 self.pokemonEvChain = resp
                 self.ChainId = self.extractChainId(urlChain: resp.evolution_chain.url)
                 self.getChain(id: self.ChainId)
+                self.hasVarieties = resp.varieties.count > 1 ? true :  false
+                print("aa \(self.hasVarieties)")
             } else{
                 print("[DEBUG] no results no species")
             }

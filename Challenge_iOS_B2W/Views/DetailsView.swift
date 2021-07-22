@@ -14,14 +14,13 @@ struct DetailsView: View {
     @EnvironmentObject var homeViewModel: HomeViewModel
     @State private var showingSheet = false
     @State private var showingMove = false
-    //@ObservedObject var detailsViewModel: DetailsViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var pokedexNumber = ""
     
     var body: some View {
         ZStack(alignment: .top, content: {
             
-            if (detailsViewModel.pokemonChain.chain.evolves_to.isEmpty){
+            if (detailsViewModel.pokemonChain.chain.species.name == ""){
                 HomeLoadingView()
             }else{
                 ScrollView {
@@ -30,11 +29,10 @@ struct DetailsView: View {
                         PokemonStats
                         PokemonAbilities
                         PokemonEvolutions
-                        PokemonMoves
                     }
                 }.edgesIgnoringSafeArea(.all)
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading: self.barBackButton)
+                .navigationBarHidden(true)
+//                .navigationBarItems(leading: self.barBackButton)
             }
         })
     }
@@ -64,10 +62,19 @@ struct DetailsView: View {
 
                 VStack {
                     
-                    Text(detailsViewModel.pokemonDetailsList.name.capitalized)
-                        .font(.custom("Arial", size: 32))
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
+                    HStack(alignment: .center){
+                        
+                        barBackButton
+                        
+                        Spacer()
+                        
+                        Text(detailsViewModel.pokemonDetailsList.name.capitalized)
+                            .font(.custom("Arial", size: 32))
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                        
+                        Spacer()
+                    }
                     
                     HStack(alignment: .center) {
                         
@@ -196,6 +203,7 @@ struct DetailsView: View {
         
     }
     
+    //TODO: Se pokemon n evoluir, colocar um aviso
     var PokemonEvolutions: some View {
         
         //https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png
@@ -267,50 +275,6 @@ struct DetailsView: View {
         }
         
     }
-    
-    var PokemonMoves: some View{
-        return Group{
-            
-            VStack(alignment: .leading) {
-                Text("Moves")
-                    .font(.custom("Arial", size: 28))
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.leading)
-                    .padding(.vertical, 8.0)
-                
-                HStack{
-                    Button(action: {
-                        showingMove.toggle()
-                    }){
-                        Text("Mega Punch").font(.custom("Arial", size: 26))
-                            .foregroundColor(.black)
-                    }
-                    .sheet(isPresented: $showingMove,
-                           onDismiss: {
-                            print("teste")
-                           },
-                           content: {
-                            MoveView()
-                           }
-                    )
-                    
-                    Spacer()
-                    
-                    Image("normal")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .foregroundColor(.black)
-                    
-                }
-                
-                
-            }
-            
-        }
-    }
-    
-    
-    
 }
 
 struct DetailsView_Previews: PreviewProvider {
@@ -425,90 +389,3 @@ struct ProgressBar: View {
         }
     }
 }
-
-
-
-//            Text("a")
-//
-//            ForEach(self.detailsViewModel.pokemonDetailsList.types.indices, id: \.self) { index in
-//                var ab = self.detailsViewModel.pokemonDetailsList.types[index]
-//                Text(ab.type.name)
-//                Text("\(ab.slot)")
-//            }
-//
-//            ForEach(self.detailsViewModel.pokemonDetailsList.abilities.indices, id: \.self) { index in
-//                var ab = self.detailsViewModel.pokemonDetailsList.abilities[index]
-//                Text(ab.ability.name)
-//                Text("\(ab.is_hidden.description)")
-//                Text("\(ab.slot)")
-//            }
-//            Text(detailsViewModel.pokemonDetailsList.id)
-//            Text(detailsViewModel.pokemonDetailsList.types)
-
-
-
-//                switch type {
-//                case "bug":
-//                    Color("Bug")
-//                        .ignoresSafeArea()
-//                case "dark":
-//                    Color("Dark")
-//                        .ignoresSafeArea()
-//                case "dragon":
-//                    Color("Dragon")
-//                        .ignoresSafeArea()
-//                case "eletric":
-//                    Color("Eletric")
-//                        .ignoresSafeArea()
-//                case "fairy":
-//                    Color("Fairy")
-//                        .ignoresSafeArea()
-//                case "fighting":
-//                    Color("Fighting")
-//                        .ignoresSafeArea()
-//                case "fire":
-//                    Color("Fire")
-//                        .ignoresSafeArea()
-//                case "flying":
-//                    Color("Flying")
-//                        .ignoresSafeArea()
-//                case "ghost":
-//                    Color("Ghost")
-//                        .ignoresSafeArea()
-//                case "grass":
-//                    Color("Grass")
-//                        .ignoresSafeArea()
-//                case "ground":
-//                    Color("Ground")
-//                        .ignoresSafeArea()
-//                case "ice":
-//                    Color("Ice")
-//                        .ignoresSafeArea()
-//                case "normal":
-//                    Color("Normal")
-//                        .ignoresSafeArea()
-//                case "poison":
-//                    Color("Poison")
-//                        .ignoresSafeArea()
-//                case "psychic":
-//                    Color("Psychic")
-//                        .ignoresSafeArea()
-//                case "rock":
-//                    Color("Rock")
-//                        .ignoresSafeArea()
-//                case "shadow":
-//                    Color("Shadow")
-//                        .ignoresSafeArea()
-//                case "steel":
-//                    Color("Steel")
-//                        .ignoresSafeArea()
-//                case "unknown":
-//                    Color("Unknown")
-//                        .ignoresSafeArea()
-//                case "water":
-//                    Color("Water")
-//                        .ignoresSafeArea()
-//                default:
-//                    Color("Background")
-//                        .ignoresSafeArea()
-//                }

@@ -26,9 +26,12 @@ struct CardListComponent: View {
                             DetailsView(pokedexNumber: pokedexNumber)
                             .environmentObject(detailsViewModel)
                             .environmentObject(homeViewModel)
+                            .navigationBarBackButtonHidden(true)
                 .onAppear(){
                     print("index clicdo eh \(index)")
-                    detailsViewModel.getPokemonsDetails(index: Int(pokedexNumber)!)
+                    detailsViewModel
+                        .getPokemonsDetails(index: Int(pokedexNumber)!)
+                        
                                 
             }) { EmptyView()}.frame(width: 0)
             

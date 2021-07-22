@@ -129,7 +129,7 @@ class PokemonService: NSObject {
             }
         }
     
-    static func getSpecies(id: Int, completion: @escaping (spChain?, Error?) -> Void){
+    static func getSpecies(id: Int, completion: @escaping (PokemonSpecies?, Error?) -> Void){
         
         let url = "https://pokeapi.co/api/v2/pokemon-species/\(id)/"
         
@@ -139,7 +139,7 @@ class PokemonService: NSObject {
                 print(error)
             case .success(let data):
                 do {
-                    let root = try JSONDecoder().decode(spChain.self, from: data)
+                    let root = try JSONDecoder().decode(PokemonSpecies.self, from: data)
                     let aux = root
                     completion(aux, nil)
                 } catch let error {
