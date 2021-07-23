@@ -95,6 +95,8 @@ struct AbilityDescriptionLanguage : Codable {
     var url                 : String
 }
 
+
+
 struct Types : Codable {
     var slot                : Int
     var type                : Type
@@ -103,4 +105,13 @@ struct Types : Codable {
 struct Type : Codable {
     var name                : String
     var url                 : String
+}
+
+//MARK: Modelos para pegar os pokemons de mesmo tipo
+struct SameTypePokemon : Codable {
+    var pokemon             : [SameTypePokemonArray]
+}
+
+struct SameTypePokemonArray : Codable {
+    var pokemon             : Pokemon
 }

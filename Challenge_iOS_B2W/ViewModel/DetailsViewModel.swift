@@ -15,12 +15,16 @@ class DetailsViewModel: ObservableObject{
     @Published var pokemonSearched          = Details(id: 0, stats: [], abilities: [], types: [], name: "", species: Species(name: "", url: ""))
     @Published var pokemonEvChain           : PokemonSpecies = PokemonSpecies(evolution_chain: Evolution_Chain(url: ""), varieties: [])
     @Published var pokemonChain             : Chain = Chain(chain: EvolvesTo(species: Species(name: "", url: ""), evolves_to: []))
+    @Published var pokemonVarietieNameList  : [String] = []
+    @Published var pokemonTypesId           : [String] = []
+    @Published var sameTypePokemon          : [SameTypePokemonArray] = [SameTypePokemonArray(pokemon: Pokemon(name: "", url: ""))]
     
     public var SpeciesId = ""
     public var ChainId = ""
     public var ids : [String] = []
     public var names : [String] = []
     public var hasVarieties = false
+    public var idsVarieties : [Int] = []
 
     var color: Color = Color.white
     
@@ -57,6 +61,32 @@ class DetailsViewModel: ObservableObject{
         }
         return "0"
     }
+    
+    public func extractIdFromVariety(urlPokemon:String) -> String{
+        
+        if let range = urlPokemon.range(of: "/pokemon/") {
+            let pkmNumber = urlPokemon[range.upperBound...]
+            let number = pkmNumber.replacingOccurrences(of: "/", with: "", options: .literal, range: nil)
+            return number
+        }
+        return "0"
+    }
+    
+    public func extractTypeId(urlPokemon:String) -> String{
+        
+        if let range = urlPokemon.range(of: "/type/") {
+            let pkmTypeNumber = urlPokemon[range.upperBound...]
+            let type = pkmTypeNumber.replacingOccurrences(of: "/", with: "", options: .literal, range: nil)
+            return type
+        }
+        return "0"
+    }
+    
+//    public func getIDinTypesArray(String: ){
+//        ForEach(pokemonDetailsList.types.indices, id: \.self){
+//            
+//        }
+//    }
     
     func refreshAbilities(){
         pokemonAbilityDetails = AbilityDetail(effect_entries: [])
@@ -113,14 +143,24 @@ class DetailsViewModel: ObservableObject{
         return color
     }
     
-    func getPokemonsDetails(index: Int){
+    //MARK: Services
+    
+    func getPokemonsDetails(index: Int, isVariety: Bool){
         PokemonService.getDetailsPokemons(id: index) { results, error  in
             if results != nil {
                 guard let resp = results else {return}
-                self.pokemonDetailsList = resp
-                self.SpeciesId = self.extractSpeciesId(urlSpecies: resp.species.url)
-                print("esp id \(self.SpeciesId)")
-                self.getSpecies(id: Int(self.SpeciesId)!)
+                if isVariety{
+                    self.pokemonVarietieNameList.append(resp.name)
+                }
+                else {
+                    self.pokemonDetailsList = resp
+                    self.SpeciesId = self.extractSpeciesId(urlSpecies: resp.species.url)
+                    self.getSpecies(id: Int(self.SpeciesId)!)
+                    for element in resp.types {
+                        let id =  self.extractTypeId(urlPokemon: element.type.url)
+                        self.pokemonTypesId.append(id)
+                    }
+                }
             } else{
                 print("[DEBUG] no results no details")
             }
@@ -135,10 +175,26 @@ class DetailsViewModel: ObservableObject{
                 self.ChainId = self.extractChainId(urlChain: resp.evolution_chain.url)
                 self.getChain(id: self.ChainId)
                 self.hasVarieties = resp.varieties.count > 1 ? true :  false
-                print("aa \(self.hasVarieties)")
+                self.getVarietiesIds(varieties:  resp.varieties)
             } else{
                 print("[DEBUG] no results no species")
             }
+        }
+    }
+    
+    func getVarietiesIds(varieties: [Varieties]){
+        self.idsVarieties = []
+        self.pokemonVarietieNameList = []
+        for variety in varieties {
+            let id = self.extractIdFromVariety(urlPokemon: variety.pokemon.url)
+            guard let intId = Int(id) else { return }
+            idsVarieties.append(intId)
+        }
+        print(idsVarieties)
+        //pokemonVarietieList
+        for i in idsVarieties {
+            print(i)
+            self.getPokemonsDetails(index: i, isVariety: true)
         }
     }
     
@@ -198,6 +254,19 @@ class DetailsViewModel: ObservableObject{
             if results != nil {
                 guard let resp = results else {return}
                 self.pokemonSearched = resp
+            } else{
+                print("[DEBUG] no results")
+            }
+        }
+    }
+    
+    //MARK: Funcao que usa o id para pegar os pokemons que possuem o mesmo tipo que o tipo selecionado
+    func getSameTypePokemons(id: String){
+        print("Pegando pokemons com id = \(id)")
+        PokemonService.getSameTypesPokemons(id: id) { results, error  in
+            if results != nil {
+                guard let resp = results else {return}
+                self.sameTypePokemon = resp.pokemon
             } else{
                 print("[DEBUG] no results")
             }

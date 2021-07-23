@@ -30,7 +30,7 @@ struct CardListComponent: View {
                 .onAppear(){
                     print("index clicdo eh \(index)")
                     detailsViewModel
-                        .getPokemonsDetails(index: Int(pokedexNumber)!)
+                        .getPokemonsDetails(index: Int(pokedexNumber)!, isVariety: false)
                         
                                 
             }) { EmptyView()}.frame(width: 0)

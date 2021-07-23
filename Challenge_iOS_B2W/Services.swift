@@ -175,6 +175,28 @@ class PokemonService: NSObject {
         }
     }
     
+    static func getSameTypesPokemons(id: String, completion: @escaping (SameTypePokemon?, Error?) -> Void){
+        
+        let url = "https://pokeapi.co/api/v2/type/\(id)/"
+        
+        AF.request(url).responseData { response in
+            switch response.result {
+            case .failure(let error):
+                print(error)
+            case .success(let data):
+                do {
+                    let root = try JSONDecoder().decode(SameTypePokemon.self, from: data)
+                    let aux = root
+                    completion(aux, nil)
+                } catch let error {
+                    completion(nil, error)
+                    print(error)
+                }
+                
+            }
+        }
+    }
+    
 }
 
 

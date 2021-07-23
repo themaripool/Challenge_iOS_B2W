@@ -16,6 +16,7 @@ struct DetailsView: View {
     @State private var showingMove = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var pokedexNumber = ""
+    @State private var selectedPokemon = " "
     
     var body: some View {
         ZStack(alignment: .top, content: {
@@ -26,12 +27,18 @@ struct DetailsView: View {
                 ScrollView {
                     PokemonHeader
                     VStack {
+//                        if(detailsViewModel.pokemonEvChain.varieties.count > 1){
+//                            pickerView
+//                        }
                         PokemonStats
                         PokemonAbilities
                         PokemonEvolutions
                     }
                 }.edgesIgnoringSafeArea(.all)
                 .navigationBarHidden(true)
+                .onAppear(){
+                   // self.selectedPokemon = (detailsViewModel.pokemonEvChain.varieties.first?.pokemon.name)!
+                }
 //                .navigationBarItems(leading: self.barBackButton)
             }
         })
@@ -78,14 +85,32 @@ struct DetailsView: View {
                     
                     HStack(alignment: .center) {
                         
+                        //type ta sendo o mesmo para os dois botoes
+                        
                         ForEach(self.detailsViewModel.pokemonDetailsList.types.indices, id: \.self){ type in
                             let pkmType = self.detailsViewModel.pokemonDetailsList.types[type].type.name
-                            Text(pkmType)
-                                .font(.custom("Arial", size: 16))
-                                .foregroundColor(.white)
-                                .padding(12)
-                                .background(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)).opacity(0.3))
-                                .clipShape(RoundedRectangle(cornerRadius: 30))
+                            
+                            
+                            Button(action: {
+                                if(showingSheet == false){
+                                    self.detailsViewModel.getSameTypePokemons(id: detailsViewModel.pokemonTypesId[type])
+                                }
+                                showingSheet.toggle()
+                            }){
+                                Text(pkmType)
+                                    .font(.custom("Arial", size: 16))
+                                    .foregroundColor(.white)
+                                    .padding(12)
+                                    .background(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)).opacity(0.3))
+                                    .clipShape(RoundedRectangle(cornerRadius: 30))
+                            }
+                            .sheet(isPresented: $showingSheet,
+                                   onDismiss: {},
+                                   content: {
+                                    SameTypeView()
+                                        .environmentObject(detailsViewModel)
+                                   }
+                            )
                         }
                         
                         Spacer()
@@ -117,6 +142,51 @@ struct DetailsView: View {
                 
                 
             }.frame(width: UIScreen.main.bounds.width, height: 300)
+        }
+    }
+    
+    var pickerView: some View {
+        
+        VStack(alignment: .leading) {
+            Text("Pokemon Variety: ")
+                .font(.custom("Arial", size: 26))
+            
+            HStack{
+                var _ = print(selectedPokemon)
+                Picker(selection: $selectedPokemon, label:
+                        HStack{
+                            Text(selectedPokemon)
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding()
+                                .padding(.horizontal)
+                                .background(Color.blue)
+                                .cornerRadius(10)
+                                .shadow(color: Color.blue.opacity(0.3), radius: 10, x: 0, y: 10)
+                        }, content: {
+                            ForEach(detailsViewModel.pokemonVarietieNameList, id: \.self) {
+                                Text($0)
+                            }
+                        })
+                    .pickerStyle(MenuPickerStyle())
+                    //.pickerStyle(WheelPickerStyle())
+                if (selectedPokemon != detailsViewModel.pokemonDetailsList.name){
+                    
+                }
+                    
+                // Text("You selected: \(selectedColor)")
+            }
+            
+//            Group{
+//                EmptyView{}
+//                if selectedPokemon == 0 {
+//                    Text("add (first way)")
+//                } else if selectedPokemon == 1 {
+//                    Text("edit (first way)")
+//                } else {
+//                    Text("delete (first way)")
+//                }
+//            }
         }
     }
     
@@ -295,6 +365,40 @@ struct AbilityId: View {
                 .font(.custom("Arial", size: 20))
                 .foregroundColor(.black)
                 .padding(.all, 8)
+        }
+    }
+}
+
+struct SameTypeView: View {
+    @EnvironmentObject var detailsViewModel: DetailsViewModel
+    var body: some View {
+        
+        if detailsViewModel.sameTypePokemon.isEmpty {
+            ProgressView()
+        } else {
+            List(detailsViewModel.sameTypePokemon.indices, id: \.self){ element in
+                let el = detailsViewModel.sameTypePokemon[element].pokemon
+                let idPokemon = detailsViewModel.extractIdFromVariety(urlPokemon: el.url)
+                HStack(){
+                    
+                    KFImage(URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(idPokemon).png")!)
+                        .placeholder {
+                            Image(uiImage: UIImage(named: "placeholder")!)
+                                .resizable()
+                                .renderingMode(.original)
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 50, height: 40)
+                        }
+                        .resizable()
+                        .padding(.top, 8.0)
+                        .frame(width: 90, height: 90)
+                    
+                    Text(el.name)
+                        .font(.custom("Arial", size: 20))
+                        .foregroundColor(.black)
+                        .padding(.all, 8)
+                }
+            }
         }
     }
 }
