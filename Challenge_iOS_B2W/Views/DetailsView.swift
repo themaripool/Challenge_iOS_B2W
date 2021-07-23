@@ -12,8 +12,8 @@ struct DetailsView: View {
     
     @EnvironmentObject var detailsViewModel: DetailsViewModel
     @EnvironmentObject var homeViewModel: HomeViewModel
-    @State private var showingSheet = false
-    @State private var showingMove = false
+    @State private var showingAbilityView = false
+    @State private var showingTypesView = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var pokedexNumber = ""
     @State private var selectedPokemon = " "
@@ -85,17 +85,16 @@ struct DetailsView: View {
                     
                     HStack(alignment: .center) {
                         
-                        //type ta sendo o mesmo para os dois botoes
                         
                         ForEach(self.detailsViewModel.pokemonDetailsList.types.indices, id: \.self){ type in
                             let pkmType = self.detailsViewModel.pokemonDetailsList.types[type].type.name
                             
                             
                             Button(action: {
-                                if(showingSheet == false){
+                                if(showingTypesView == false){
                                     self.detailsViewModel.getSameTypePokemons(id: detailsViewModel.pokemonTypesId[type])
                                 }
-                                showingSheet.toggle()
+                                showingTypesView.toggle()
                             }){
                                 Text(pkmType)
                                     .font(.custom("Arial", size: 16))
@@ -104,7 +103,7 @@ struct DetailsView: View {
                                     .background(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)).opacity(0.3))
                                     .clipShape(RoundedRectangle(cornerRadius: 30))
                             }
-                            .sheet(isPresented: $showingSheet,
+                            .sheet(isPresented: $showingTypesView,
                                    onDismiss: {},
                                    content: {
                                     SameTypeView()
@@ -122,18 +121,20 @@ struct DetailsView: View {
                         
                     }
                     
-                    KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/\(pokedexNumber).png")!)
-                        .placeholder {
-                            Image(uiImage: UIImage(named: "placeholder")!)
-                                .resizable()
-                                .renderingMode(.original)
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 100, height: 80)
-                        }
-                        .resizable()
-                        .padding(.top, 8.0)
-                        .padding(.bottom, 8.0)
-                        .frame(width: 170, height: 140)
+                    CarouselView(pokedexNumber: pokedexNumber)
+                    
+//                    KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/\(pokedexNumber).png")!)
+//                        .placeholder {
+//                            Image(uiImage: UIImage(named: "placeholder")!)
+//                                .resizable()
+//                                .renderingMode(.original)
+//                                .aspectRatio(contentMode: .fill)
+//                                .frame(width: 100, height: 80)
+//                        }
+//                        .resizable()
+//                        .padding(.top, 8.0)
+//                        .padding(.bottom, 8.0)
+//                        .frame(width: 170, height: 140)
                     
                     
                 }
@@ -246,16 +247,16 @@ struct DetailsView: View {
                         Button(action: {
                             id = self.detailsViewModel.extractAbilityId(urlAbility: abilities.ability.url)
                             detailsViewModel.getAbilityDetails(index: Int(id)! )
-                            showingSheet.toggle()
+                            showingAbilityView.toggle()
                         }){
                             Text(abilities.ability.name.capitalized).font(.custom("Arial", size: 21))
                                 .foregroundColor(colorPKM)
                                 .fontWeight(.semibold)
                         }
-                        .sheet(isPresented: $showingSheet,
+                        .sheet(isPresented: $showingAbilityView,
                                onDismiss: {self.detailsViewModel.refreshAbilities()},
                                content: {
-                                AbilityId()
+                                AbilityView()
                                     .environmentObject(detailsViewModel)
                                     .onAppear(){
                                     }
@@ -353,7 +354,7 @@ struct DetailsView_Previews: PreviewProvider {
     }
 }
 
-struct AbilityId: View {
+struct AbilityView: View {
     @EnvironmentObject var detailsViewModel: DetailsViewModel
     var body: some View {
         if detailsViewModel.pokemonAbilityDetails.effect_entries.first?.effect == nil {
@@ -403,9 +404,40 @@ struct SameTypeView: View {
     }
 }
 
+struct CarouselView: View {
+    var pokedexNumber = ""
+    var body: some View {
+        GeometryReader { geometry in
+            ImageCarouselView(numberOfImages: 3) {
+                KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/\(pokedexNumber).png")!)
+                    .resizable()
+                    .frame(width: 170, height: 140)
+                    .scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .clipped()
+                Spacer()
+                KFImage(URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokedexNumber).png")!)
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .clipped()
+                Spacer()
+                KFImage(URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/\(pokedexNumber).png")!)
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .clipped()
+                Spacer()
+            }
+        }.frame(width: 170, height: 140, alignment: .center)
+    }
+}
+
 struct AbilityId_Previews: PreviewProvider {
     static var previews: some View {
-        AbilityId().environmentObject(DetailsViewModel())
+        AbilityView().environmentObject(DetailsViewModel())
     }
 }
 

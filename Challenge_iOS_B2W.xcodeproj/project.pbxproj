@@ -26,6 +26,7 @@
 		C057BF2126A7A9C50033DA3A /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C057BF2026A7A9C50033DA3A /* PartialSheet */; };
 		C0A523B726A74AC2002940E7 /* HomeLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A523B626A74AC2002940E7 /* HomeLoadingView.swift */; };
 		C0A523B926A74BAE002940E7 /* CardShimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A523B826A74BAE002940E7 /* CardShimmer.swift */; };
+		C0E7F6D626AB0BAB00CFD930 /* ImageCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E7F6D526AB0BAB00CFD930 /* ImageCarouselView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		C03B70E226A05D4E00CD9FAA /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		C0A523B626A74AC2002940E7 /* HomeLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLoadingView.swift; sourceTree = "<group>"; };
 		C0A523B826A74BAE002940E7 /* CardShimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardShimmer.swift; sourceTree = "<group>"; };
+		C0E7F6D526AB0BAB00CFD930 /* ImageCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarouselView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +185,7 @@
 				C034FB6826A0AE3900A34C01 /* DetailsView.swift */,
 				C0A523B626A74AC2002940E7 /* HomeLoadingView.swift */,
 				C0A523B826A74BAE002940E7 /* CardShimmer.swift */,
+				C0E7F6D526AB0BAB00CFD930 /* ImageCarouselView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 			files = (
 				C03B70A3269E70F300CD9FAA /* ContentView.swift in Sources */,
 				C03B70D626A0530A00CD9FAA /* Pokemon.swift in Sources */,
+				C0E7F6D626AB0BAB00CFD930 /* ImageCarouselView.swift in Sources */,
 				C03B70CC269E78F300CD9FAA /* CardListComponent.swift in Sources */,
 				C0A523B726A74AC2002940E7 /* HomeLoadingView.swift in Sources */,
 				C03B70E326A05D4E00CD9FAA /* Services.swift in Sources */,
