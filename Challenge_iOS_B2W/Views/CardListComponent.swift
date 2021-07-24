@@ -23,14 +23,17 @@ struct CardListComponent: View {
             Color.init("Background")
             
             NavigationLink(destination:
-                            DetailsView(pokedexNumber: pokedexNumber)
+                            DetailsView()
                             .environmentObject(detailsViewModel)
                             .environmentObject(homeViewModel)
                             .navigationBarBackButtonHidden(true)
                 .onAppear(){
                     print("index clicdo eh \(index)")
                     detailsViewModel
-                        .getPokemonsDetails(index: Int(pokedexNumber)!, isVariety: false)
+                        .getPokemonsDetails(index: Int(pokedexNumber)!)
+                    detailsViewModel
+                        .setVariables(number: pokedexNumber, selected: detailsViewModel.pokemonVarietieNameList.first ?? "")
+
                         
                                 
             }) { EmptyView()}.frame(width: 0)

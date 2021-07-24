@@ -15,8 +15,8 @@ struct DetailsView: View {
     @State private var showingAbilityView = false
     @State private var showingTypesView = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    var pokedexNumber = ""
-    @State private var selectedPokemon = " "
+    //var pokedexNumber = ""
+    @State var selectedPokemon = " "
     
     var body: some View {
         ZStack(alignment: .top, content: {
@@ -27,9 +27,10 @@ struct DetailsView: View {
                 ScrollView {
                     PokemonHeader
                     VStack {
-//                        if(detailsViewModel.pokemonEvChain.varieties.count > 1){
-//                            pickerView
-//                        }
+                        if(detailsViewModel.pokemonEvChain.varieties.count > 1){
+                            pickerView
+                        }
+                        //pickerView
                         PokemonStats
                         PokemonAbilities
                         PokemonEvolutions
@@ -41,7 +42,7 @@ struct DetailsView: View {
                 }
 //                .navigationBarItems(leading: self.barBackButton)
             }
-        })
+        }).transition(.opacity.animation(.easeIn(duration: 5)))
     }
     
     var barBackButton: some View {
@@ -53,6 +54,7 @@ struct DetailsView: View {
                 .frame(width: 20, height: 20)
                 .onTapGesture {
                     //self.homeViewModel.reloadData() -> ver bug do carregamento eterno
+                    self.detailsViewModel.refresh()
                     self.presentationMode.wrappedValue.dismiss()
                 }
         }
@@ -87,56 +89,44 @@ struct DetailsView: View {
                         
                         
                         ForEach(self.detailsViewModel.pokemonDetailsList.types.indices, id: \.self){ type in
-                            let pkmType = self.detailsViewModel.pokemonDetailsList.types[type].type.name
                             
                             
-                            Button(action: {
-                                if(showingTypesView == false){
-                                    self.detailsViewModel.getSameTypePokemons(id: detailsViewModel.pokemonTypesId[type])
+                            if (self.detailsViewModel.pokemonDetailsList.types.count != 0){
+                                
+                                let pkmType = self.detailsViewModel.pokemonDetailsList.types[type].type.name
+                                Button(action: {
+                                    if(showingTypesView == false){
+                                        self.detailsViewModel.getSameTypePokemons(id: detailsViewModel.pokemonTypesId[type])
+                                    }
+                                    showingTypesView.toggle()
+                                }){
+                                    Text(pkmType)
+                                        .font(.custom("Arial", size: 16))
+                                        .foregroundColor(.white)
+                                        .padding(12)
+                                        .background(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)).opacity(0.3))
+                                        .clipShape(RoundedRectangle(cornerRadius: 30))
                                 }
-                                showingTypesView.toggle()
-                            }){
-                                Text(pkmType)
-                                    .font(.custom("Arial", size: 16))
-                                    .foregroundColor(.white)
-                                    .padding(12)
-                                    .background(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)).opacity(0.3))
-                                    .clipShape(RoundedRectangle(cornerRadius: 30))
+                                .sheet(isPresented: $showingTypesView,
+                                       onDismiss: {},
+                                       content: {
+                                        SameTypeView()
+                                            .environmentObject(detailsViewModel)
+                                       }
+                                )
                             }
-                            .sheet(isPresented: $showingTypesView,
-                                   onDismiss: {},
-                                   content: {
-                                    SameTypeView()
-                                        .environmentObject(detailsViewModel)
-                                   }
-                            )
                         }
                         
                         Spacer()
                         
-                        Text("#" + pokedexNumber)
+                        Text("#" + detailsViewModel.pokedexNumber)
                             .font(.custom("Arial", size: 16))
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                         
                     }
                     
-                    CarouselView(pokedexNumber: pokedexNumber)
-                    
-//                    KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/\(pokedexNumber).png")!)
-//                        .placeholder {
-//                            Image(uiImage: UIImage(named: "placeholder")!)
-//                                .resizable()
-//                                .renderingMode(.original)
-//                                .aspectRatio(contentMode: .fill)
-//                                .frame(width: 100, height: 80)
-//                        }
-//                        .resizable()
-//                        .padding(.top, 8.0)
-//                        .padding(.bottom, 8.0)
-//                        .frame(width: 170, height: 140)
-                    
-                    
+                    CarouselView(pokedexNumber: detailsViewModel.pokedexNumber)
                 }
                 .padding(.top, 64.0)
                 .padding(.horizontal, 8.0)
@@ -149,19 +139,21 @@ struct DetailsView: View {
     var pickerView: some View {
         
         VStack(alignment: .leading) {
-            Text("Pokemon Variety: ")
-                .font(.custom("Arial", size: 26))
-            
-            HStack{
-                var _ = print(selectedPokemon)
+            HStack(){
+                Text("Pokemon Variety")
+                    .font(.custom("Arial", size: 20))
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.leading)
+                    .padding(.vertical, 8.0)
+                Spacer()
                 Picker(selection: $selectedPokemon, label:
                         HStack{
                             Text(selectedPokemon)
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                                 .padding()
                                 .padding(.horizontal)
-                                .background(Color.blue)
+                                .background(Color.gray.opacity(0.3))
                                 .cornerRadius(10)
                                 .shadow(color: Color.blue.opacity(0.3), radius: 10, x: 0, y: 10)
                         }, content: {
@@ -170,25 +162,20 @@ struct DetailsView: View {
                             }
                         })
                     .pickerStyle(MenuPickerStyle())
+                Spacer()
                     //.pickerStyle(WheelPickerStyle())
-                if (selectedPokemon != detailsViewModel.pokemonDetailsList.name){
-                    
+                if (selectedPokemon != detailsViewModel.pokemonDetailsList.name) {
+                    let index = detailsViewModel.findIndexInArray(name: selectedPokemon)
+                    if (index != -1){
+                        let id = detailsViewModel.idsVarieties[index]
+                        var _ = self.detailsViewModel.refresh()
+                        var _ = self.detailsViewModel.getPokemonsDetails(index: id)
+                        var _ = self.detailsViewModel.setVariables(number: "\(id)", selected: selectedPokemon)
+                    }
                 }
-                    
-                // Text("You selected: \(selectedColor)")
             }
-            
-//            Group{
-//                EmptyView{}
-//                if selectedPokemon == 0 {
-//                    Text("add (first way)")
-//                } else if selectedPokemon == 1 {
-//                    Text("edit (first way)")
-//                } else {
-//                    Text("delete (first way)")
-//                }
-//            }
         }
+        .padding(.horizontal, 8.0)
     }
     
     var PokemonStats: some View {
@@ -231,14 +218,15 @@ struct DetailsView: View {
             let colorPKM = detailsViewModel.getColor()
             
             VStack(alignment: .leading) {
-                Text("Abilities")
-                    .font(.custom("Arial", size: 26))
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.leading)
-                    .padding(.vertical, 8.0)
-            
-                
-                VStack(){
+                HStack(){
+                    Text("Abilities")
+                        .font(.custom("Arial", size: 26))
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.leading)
+                        .padding(.vertical, 8.0)
+                    Spacer()
+                }
+                VStack(alignment: .leading){
                     
                     ForEach (self.detailsViewModel.pokemonDetailsList.abilities.indices, id: \.self){ index in
                         let abilities = self.detailsViewModel.pokemonDetailsList.abilities[index]
@@ -262,10 +250,10 @@ struct DetailsView: View {
                                     }
                                }
                         )
+                        .padding(.bottom, 8.0)
                     }
                     Spacer()
                 }
-                .padding()
             }
             .padding(.horizontal, 8.0)
             
@@ -282,10 +270,14 @@ struct DetailsView: View {
         return Group {
             
             VStack(alignment: .leading) {
-                Text("Evolutions")
-                    .font(.custom("Arial", size: 26))
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.leading)
+                HStack(){
+                    Text("Evolutions")
+                        .font(.custom("Arial", size: 26))
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.leading)
+                        .padding(.vertical, 8.0)
+                    Spacer()
+                }
                 
                 if detailsViewModel.ids.count > 3{
                     
@@ -315,7 +307,7 @@ struct DetailsView: View {
                     .padding()
                     
                     
-                }else {
+                } else if detailsViewModel.ids.count != 0 && detailsViewModel.ids.count > 1 {
                     HStack{
                         ForEach (detailsViewModel.ids.indices) { indice in
                             VStack(alignment: .center){
@@ -340,6 +332,9 @@ struct DetailsView: View {
                         }
                     }
                     .padding()
+                }
+                else{
+                    Text("No Evolution")
                 }
             }
             .padding(.horizontal, 8.0)
@@ -408,14 +403,17 @@ struct CarouselView: View {
     var pokedexNumber = ""
     var body: some View {
         GeometryReader { geometry in
-            ImageCarouselView(numberOfImages: 3) {
-                KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/\(pokedexNumber).png")!)
-                    .resizable()
-                    .frame(width: 170, height: 140)
-                    .scaledToFill()
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                    .clipped()
-                Spacer()
+            let num = Int(pokedexNumber)
+            ImageCarouselView(numberOfImages: num! >= 888 ? 2 : 3) {
+                if (num! < 888){
+                    KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/\(pokedexNumber).png")!)
+                        .resizable()
+                        .frame(width: 170, height: 140)
+                        .scaledToFill()
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .clipped()
+                    Spacer()
+                }
                 KFImage(URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokedexNumber).png")!)
                     .resizable()
                     .frame(width: 100, height: 100)
@@ -441,69 +439,7 @@ struct AbilityId_Previews: PreviewProvider {
     }
 }
 
-struct MoveView: View {
-    
-    var body: some View {
-        VStack{
-            
-            VStack(alignment: .leading){
-                Text("Mega Punch")
-                    .font(.custom("Arial", size: 28))
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.leading)
-                    .padding(.vertical, 8.0)
-                
-                HStack{
-                    Text("Inflicts regular damage.  For the next 2–5 turns, the target cannot leave the field and is damaged for 1/16 its max HP at the end of each turn.  The user continues to use other moves during this time.  If the user leaves the field, this effect ends.\n\nHas a 3/8 chance each to hit 2 or 3 times, and a 1/8 chance each to hit 4 or 5 times.  Averages to 3 hits per use.\n\nrapid spin cancels this effect.")
-                }
-                
-            }
-            
-            VStack(alignment: .leading){
-                Text("Stats")
-                    .font(.custom("Arial", size: 28))
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.leading)
-                    .padding(.vertical, 8.0)
-                HStack{
-                    VStack{
-                        Text("PWR").font(.custom("Arial", size: 24))
-                        Text("80").font(.custom("Arial", size: 24)).fontWeight(.bold)
-                    }
-                    
-                    Spacer()
-                    
-                    VStack{
-                        Text("ACC").font(.custom("Arial", size: 24))
-                        Text("85").font(.custom("Arial", size: 24)).fontWeight(.bold)
-                    }
-                    
-                    Spacer()
-                    
-                    VStack{
-                        Text("PP").font(.custom("Arial", size: 24))
-                        Text("20").font(.custom("Arial", size: 24)).fontWeight(.bold)
-                    }
-                    
-                    Spacer()
-                    
-                    VStack{
-                        Text("PRIO").font(.custom("Arial", size: 24))
-                        Text("0").font(.custom("Arial", size: 24)).fontWeight(.bold)
-                    }
-                }
-            }
-            .padding(.horizontal, 8.0)
-        }.frame(width: UIScreen.main.bounds.width, height: 500)
-    }
-}
-
-struct MoveView_Previews: PreviewProvider {
-    static var previews: some View {
-        MoveView()
-    }
-}
-
+//MARK: View da
 struct ProgressBar: View {
     @EnvironmentObject var detailsViewModel: DetailsViewModel
     
@@ -518,9 +454,8 @@ struct ProgressBar: View {
                     .opacity(0.3)
                     .foregroundColor(colorPKM.opacity(0.4))
                 
-                Rectangle().frame(width: min((CGFloat(self.value) * geometry.size.width) / 100, geometry.size.width), height: geometry.size.height)
+                Rectangle().frame(width: min((CGFloat(self.value) * geometry.size.width) / 255, geometry.size.width), height: geometry.size.height)
                     .foregroundColor(colorPKM)
-                    .animation(.linear)
             }.cornerRadius(45.0)
         }
     }

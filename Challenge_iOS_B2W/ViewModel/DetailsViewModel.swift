@@ -19,6 +19,8 @@ class DetailsViewModel: ObservableObject{
     @Published var pokemonTypesId           : [String] = []
     @Published var sameTypePokemon          : [SameTypePokemonArray] = [SameTypePokemonArray(pokemon: Pokemon(name: "", url: ""))]
     
+    public var pokedexNumber = ""
+    public var selectedPokemon = ""
     public var SpeciesId = ""
     public var ChainId = ""
     public var ids : [String] = []
@@ -82,11 +84,25 @@ class DetailsViewModel: ObservableObject{
         return "0"
     }
     
-//    public func getIDinTypesArray(String: ){
-//        ForEach(pokemonDetailsList.types.indices, id: \.self){
-//            
-//        }
-//    }
+    func refresh(){
+        self.pokemonDetailsList       = Details(id: 0, stats: [], abilities: [], types: [], name: "", species: Species(name: "", url: ""))
+        self.pokemonAbilityDetails    = AbilityDetail(effect_entries: [])
+        self.pokemonSearched          = Details(id: 0, stats: [], abilities: [], types: [], name: "", species: Species(name: "", url: ""))
+        self.pokemonEvChain           = PokemonSpecies(evolution_chain: Evolution_Chain(url: ""), varieties: [])
+        self.pokemonChain             = Chain(chain: EvolvesTo(species: Species(name: "", url: ""), evolves_to: []))
+        self.pokemonVarietieNameList  = []
+        self.pokemonTypesId           = []
+        self.sameTypePokemon          = [SameTypePokemonArray(pokemon: Pokemon(name: "", url: ""))]
+        
+        self.pokedexNumber = ""
+        self.selectedPokemon = ""
+        self.SpeciesId = ""
+        self.ChainId = ""
+        self.ids  = []
+        self.names = []
+        self.hasVarieties = false
+        self.idsVarieties  = []
+    }
     
     func refreshAbilities(){
         pokemonAbilityDetails = AbilityDetail(effect_entries: [])
@@ -143,73 +159,13 @@ class DetailsViewModel: ObservableObject{
         return color
     }
     
-    //MARK: Services
-    
-    func getPokemonsDetails(index: Int, isVariety: Bool){
-        PokemonService.getDetailsPokemons(id: index) { results, error  in
-            if results != nil {
-                guard let resp = results else {return}
-                if isVariety{
-                    self.pokemonVarietieNameList.append(resp.name)
-                }
-                else {
-                    self.pokemonDetailsList = resp
-                    self.SpeciesId = self.extractSpeciesId(urlSpecies: resp.species.url)
-                    self.getSpecies(id: Int(self.SpeciesId)!)
-                    for element in resp.types {
-                        let id =  self.extractTypeId(urlPokemon: element.type.url)
-                        self.pokemonTypesId.append(id)
-                    }
-                }
-            } else{
-                print("[DEBUG] no results no details")
-            }
-        }
+    //MARK: Set Variables
+    func setVariables(number: String, selected: String){
+        self.pokedexNumber = number
+        self.selectedPokemon = selected
     }
     
-    func getSpecies(id: Int){
-        PokemonService.getSpecies(id: id) { results, error  in
-            if results != nil {
-                guard let resp = results else {return}
-                self.pokemonEvChain = resp
-                self.ChainId = self.extractChainId(urlChain: resp.evolution_chain.url)
-                self.getChain(id: self.ChainId)
-                self.hasVarieties = resp.varieties.count > 1 ? true :  false
-                self.getVarietiesIds(varieties:  resp.varieties)
-            } else{
-                print("[DEBUG] no results no species")
-            }
-        }
-    }
-    
-    func getVarietiesIds(varieties: [Varieties]){
-        self.idsVarieties = []
-        self.pokemonVarietieNameList = []
-        for variety in varieties {
-            let id = self.extractIdFromVariety(urlPokemon: variety.pokemon.url)
-            guard let intId = Int(id) else { return }
-            idsVarieties.append(intId)
-        }
-        print(idsVarieties)
-        //pokemonVarietieList
-        for i in idsVarieties {
-            print(i)
-            self.getPokemonsDetails(index: i, isVariety: true)
-        }
-    }
-    
-    func getChain(id: String){
-        PokemonService.getEvolutionChain(id: id) { results, error  in
-            if results != nil {
-                guard let resp = results else {return}
-                self.pokemonChain = resp
-                dump(resp)
-                self.getPokemonsIDInChain(elements: resp)
-            } else{
-                print("[DEBUG] no results no species")
-            }
-        }
-    }
+    //MARK: Aux Functions
     
     func getPokemonsIDInChain(elements: Chain){
         
@@ -237,6 +193,73 @@ class DetailsViewModel: ObservableObject{
             }
         }
         print(ids)
+    }
+    
+    func getVarietiesIds(varieties: [Varieties]){
+        self.idsVarieties = []
+        self.pokemonVarietieNameList = []
+        for variety in varieties {
+            let id = self.extractIdFromVariety(urlPokemon: variety.pokemon.url)
+            self.pokemonVarietieNameList.append(variety.pokemon.name)
+            guard let intId = Int(id) else { return }
+            idsVarieties.append(intId)
+        }
+    }
+    
+    //MARK: Services Functions
+    
+    func getPokemonsDetails(index: Int){
+        PokemonService.getDetailsPokemons(id: index) { results, error  in
+            if results != nil {
+                guard let resp = results else {return}
+                self.pokemonDetailsList = resp
+                self.SpeciesId = self.extractSpeciesId(urlSpecies: resp.species.url)
+                self.getSpecies(id: Int(self.SpeciesId)!)
+                for element in resp.types {
+                    let id =  self.extractTypeId(urlPokemon: element.type.url)
+                    self.pokemonTypesId.append(id)
+                }
+            } else{
+                print("[DEBUG] no results no details")
+            }
+        }
+    }
+    
+    func getSpecies(id: Int){
+        PokemonService.getSpecies(id: id) { results, error  in
+            if results != nil {
+                guard let resp = results else {return}
+                self.pokemonEvChain = resp
+                self.ChainId = self.extractChainId(urlChain: resp.evolution_chain.url)
+                self.getChain(id: self.ChainId)
+                self.hasVarieties = resp.varieties.count > 1 ? true :  false
+                self.getVarietiesIds(varieties:  resp.varieties)
+            } else{
+                print("[DEBUG] no results no species")
+            }
+        }
+    }
+    
+    func findIndexInArray(name: String) -> Int {
+        for index in pokemonVarietieNameList.indices {
+            let aux = pokemonVarietieNameList[index]
+            if aux == name{
+                return index
+            }
+        }
+        return -1
+    }
+    
+    func getChain(id: String){
+        PokemonService.getEvolutionChain(id: id) { results, error  in
+            if results != nil {
+                guard let resp = results else {return}
+                self.pokemonChain = resp
+                self.getPokemonsIDInChain(elements: resp)
+            } else{
+                print("[DEBUG] no results no species")
+            }
+        }
     }
     
     func getAbilityDetails(index: Int){

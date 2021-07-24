@@ -14,7 +14,7 @@ struct ImageCarouselView<Content: View>: View {
     private var content: Content
 
     @State private var currentIndex: Int = 0
-    private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+    private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
 
     init(numberOfImages: Int, @ViewBuilder content: () -> Content) {
         self.numberOfImages = numberOfImages
@@ -35,16 +35,13 @@ struct ImageCarouselView<Content: View>: View {
                         self.currentIndex = (self.currentIndex + 1) % (self.numberOfImages == 0 ? 1 : self.numberOfImages)
                 }
                 
-                // 2
                 HStack(spacing: 3) {
-                    // 3
                     ForEach(0..<self.numberOfImages, id: \.self) { index in
-                         // 4
                         Circle()
                             .frame(width: index == self.currentIndex ? 10 : 8,
                                    height: index == self.currentIndex ? 10 : 8)
-                            .foregroundColor(index == self.currentIndex ? Color.blue : .white)
-                            .overlay(Circle().stroke(Color.gray, lineWidth: 1))
+                            .foregroundColor(index == self.currentIndex ? Color.gray : .white)
+                            .overlay(Circle().stroke(Color.gray, lineWidth: 0.3))
                             .padding(.bottom, 8)
                             .animation(.spring())
                     }
@@ -54,28 +51,3 @@ struct ImageCarouselView<Content: View>: View {
     }
 }
 
-struct ImageCarouselView_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        // 8
-        GeometryReader { geometry in
-            ImageCarouselView(numberOfImages: 3) {
-                KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/1.png")!)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                    .clipped()
-                KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/2.png")!)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                    .clipped()
-                KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/3.png")!)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                    .clipped()
-            }
-        }.frame(width: UIScreen.main.bounds.width, height: 300, alignment: .center)
-    }
-}
