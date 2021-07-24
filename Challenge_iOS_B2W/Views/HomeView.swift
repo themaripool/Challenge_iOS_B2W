@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  Challenge_iOS_B2W
 //
 //  Created by Mariela Mendonça de Andrade on 13/07/21.
@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 import Foundation
 
-struct ContentView: View {
+struct HomeView: View {
     
     @ObservedObject var homeViewModel: HomeViewModel
     @ObservedObject var detailsViewModel: DetailsViewModel
@@ -49,7 +49,7 @@ struct ContentView: View {
                     .onAppear {
                         if self.homeViewModel.pokemonList.last == pokemon && self.homeViewModel.pokemonList.count != 1{
                             print("ultimo")
-                            //self.homeViewModel.loadMore() -> n espera chegar no ultimo
+                            self.homeViewModel.loadMore()
                         }
                     }
             }.listRowBackground(Color.init("Background"))
@@ -95,10 +95,7 @@ struct SearchBar: UIViewRepresentable {
             PokemonService.getPokemonSearchy(search: text ) { results, error  in
                 if results != nil {
                     self.homeViewModel.pokemonListAux = self.homeViewModel.pokemonList
-                    self.homeViewModel.pokemonList = []
-                    guard let name = results?.name, let id = results?.id else {
-                        return
-                    }
+                    guard let name = results?.name, let id = results?.id else {return}
                     self.homeViewModel.pokemonList.append(Pokemon(name: name, url: "https://pokeapi.co/api/v2/pokemon/\(id)/"))
                 } else{
                     print("[DEBUG] no results")

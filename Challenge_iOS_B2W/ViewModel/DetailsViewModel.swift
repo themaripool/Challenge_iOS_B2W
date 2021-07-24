@@ -119,8 +119,8 @@ class DetailsViewModel: ObservableObject{
                 color = Color("Dark")
             case "dragon":
                 color = Color("Dragon")
-            case "eletric":
-                color = Color("Eletric")
+            case "electric":
+                color = Color("Electric")
             case "fairy":
                 color = Color("Fairy")
             case "fighting":

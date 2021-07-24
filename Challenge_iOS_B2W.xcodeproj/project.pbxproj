@@ -11,7 +11,7 @@
 		C001D0A826A4AD37007A2FA1 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C001D0A726A4AD37007A2FA1 /* Lottie */; };
 		C034FB6926A0AE3900A34C01 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C034FB6826A0AE3900A34C01 /* DetailsView.swift */; };
 		C03B70A1269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70A0269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift */; };
-		C03B70A3269E70F300CD9FAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70A2269E70F300CD9FAA /* ContentView.swift */; };
+		C03B70A3269E70F300CD9FAA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70A2269E70F300CD9FAA /* HomeView.swift */; };
 		C03B70A5269E70F400CD9FAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03B70A4269E70F400CD9FAA /* Assets.xcassets */; };
 		C03B70A8269E70F400CD9FAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03B70A7269E70F400CD9FAA /* Preview Assets.xcassets */; };
 		C03B70B3269E70F400CD9FAA /* Challenge_iOS_B2WTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70B2269E70F400CD9FAA /* Challenge_iOS_B2WTests.swift */; };
@@ -50,7 +50,7 @@
 		C034FB6826A0AE3900A34C01 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		C03B709D269E70F300CD9FAA /* Challenge_iOS_B2W.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge_iOS_B2W.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03B70A0269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge_iOS_B2WApp.swift; sourceTree = "<group>"; };
-		C03B70A2269E70F300CD9FAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C03B70A2269E70F300CD9FAA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C03B70A4269E70F400CD9FAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C03B70A7269E70F400CD9FAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C03B70A9269E70F400CD9FAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -180,7 +180,7 @@
 		C03B70D726A053E400CD9FAA /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C03B70A2269E70F300CD9FAA /* ContentView.swift */,
+				C03B70A2269E70F300CD9FAA /* HomeView.swift */,
 				C03B70CB269E78F300CD9FAA /* CardListComponent.swift */,
 				C034FB6826A0AE3900A34C01 /* DetailsView.swift */,
 				C0A523B626A74AC2002940E7 /* HomeLoadingView.swift */,
@@ -391,7 +391,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C03B70A3269E70F300CD9FAA /* ContentView.swift in Sources */,
+				C03B70A3269E70F300CD9FAA /* HomeView.swift in Sources */,
 				C03B70D626A0530A00CD9FAA /* Pokemon.swift in Sources */,
 				C0E7F6D626AB0BAB00CFD930 /* ImageCarouselView.swift in Sources */,
 				C03B70CC269E78F300CD9FAA /* CardListComponent.swift in Sources */,

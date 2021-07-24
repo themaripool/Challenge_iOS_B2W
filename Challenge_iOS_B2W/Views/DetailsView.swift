@@ -30,17 +30,12 @@ struct DetailsView: View {
                         if(detailsViewModel.pokemonEvChain.varieties.count > 1){
                             pickerView
                         }
-                        //pickerView
                         PokemonStats
                         PokemonAbilities
                         PokemonEvolutions
                     }
                 }.edgesIgnoringSafeArea(.all)
                 .navigationBarHidden(true)
-                .onAppear(){
-                   // self.selectedPokemon = (detailsViewModel.pokemonEvChain.varieties.first?.pokemon.name)!
-                }
-//                .navigationBarItems(leading: self.barBackButton)
             }
         }).transition(.opacity.animation(.easeIn(duration: 5)))
     }
@@ -53,7 +48,7 @@ struct DetailsView: View {
                 .foregroundColor(.white)
                 .frame(width: 20, height: 20)
                 .onTapGesture {
-                    //self.homeViewModel.reloadData() -> ver bug do carregamento eterno
+                    self.homeViewModel.reloadData() //-> ver bug do carregamento eterno
                     self.detailsViewModel.refresh()
                     self.presentationMode.wrappedValue.dismiss()
                 }

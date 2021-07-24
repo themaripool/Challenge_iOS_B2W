@@ -11,7 +11,7 @@ import SwiftUI
 struct Challenge_iOS_B2WApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(homeViewModel: HomeViewModel(), detailsViewModel: DetailsViewModel())
+            HomeView(homeViewModel: HomeViewModel(), detailsViewModel: DetailsViewModel())
         }
     }
 }

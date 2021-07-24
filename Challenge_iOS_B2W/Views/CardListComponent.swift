@@ -33,10 +33,9 @@ struct CardListComponent: View {
                         .getPokemonsDetails(index: Int(pokedexNumber)!)
                     detailsViewModel
                         .setVariables(number: pokedexNumber, selected: detailsViewModel.pokemonVarietieNameList.first ?? "")
-
-                        
-                                
-            }) { EmptyView()}.frame(width: 0)
+            }) { EmptyView()}
+                .hidden()
+                .frame(width: 0)
             
             HStack(alignment: .center, spacing: 16){
                 
@@ -52,7 +51,7 @@ struct CardListComponent: View {
                 
                 Spacer()
                 
-                KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/\(pokedexNumber).png")!)
+                KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/\(pokedexNumber).png"))
                     .placeholder {
                         Image(uiImage: UIImage(named: "placeholder")!)
                             .resizable()
