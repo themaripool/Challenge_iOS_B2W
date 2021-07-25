@@ -6,28 +6,26 @@
 //
 
 import XCTest
+
 @testable import Challenge_iOS_B2W
 
 class Challenge_iOS_B2WTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    private var homeView: HomeView?
+    
+    override func setUp() {
+        super.setUp()
+        homeView = HomeView(homeViewModel: HomeViewModel(), detailsViewModel: DetailsViewModel())
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testPokemonList() {
+        let pokemon = Pokemon(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/")
+        homeView?.homeViewModel.pokemonList.append(pokemon)
+        XCTAssertEqual(homeView?.homeViewModel.pokemonList.count, 1)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testReload() {
+        homeView?.homeViewModel.reloadData()
+        XCTAssertEqual(homeView?.homeViewModel.pokemonList.count, 0)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }

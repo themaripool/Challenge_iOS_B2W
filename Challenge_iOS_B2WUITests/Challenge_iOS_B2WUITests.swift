@@ -33,8 +33,7 @@ class Challenge_iOS_B2WUITests: XCTestCase {
     
     func testLoadMore() throws {
         let tablesQuery = app.tables
-        let button = tablesQuery/*@START_MENU_TOKEN@*/.buttons["6, Charizard"]/*[[".cells[\"6, Charizard\"].buttons[\"6, Charizard\"]",".buttons[\"6, Charizard\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-        button/*@START_MENU_TOKEN@*/.swipeUp()/*[[".swipeUp()",".swipeRight()"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/
+        tablesQuery/*@START_MENU_TOKEN@*/.buttons["6, Charizard"]/*[[".cells[\"6, Charizard\"].buttons[\"6, Charizard\"]",".buttons[\"6, Charizard\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*//*@START_MENU_TOKEN@*/.swipeUp()/*[[".swipeUp()",".swipeRight()"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/
         tablesQuery.buttons["13, Weedle"].swipeUp()
         tablesQuery.buttons["17, Pidgeotto"].swipeUp()
     }
@@ -68,15 +67,5 @@ class Challenge_iOS_B2WUITests: XCTestCase {
         print("exists = \(button.exists), hittable = \(button.isHittable)")
         app.buttons["venusaur-mega"].tap()
         sleep(5)
-    }
-    
-
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
     }
 }
