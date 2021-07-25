@@ -150,12 +150,12 @@
 				C0E7F72226AD8B5500CFD930 /* GoogleService-Info.plist */,
 				C03B70D826A053EA00CD9FAA /* ViewModel */,
 				C03B70D726A053E400CD9FAA /* Views */,
+				C0E7F72F26ADAECC00CFD930 /* Services */,
 				C03B70D426A052F700CD9FAA /* Models */,
 				C03B70A4269E70F400CD9FAA /* Assets.xcassets */,
 				C0E7F71826AD7C7B00CFD930 /* SceneDelegate.swift */,
 				C03B70A9269E70F400CD9FAA /* Info.plist */,
 				C03B70A6269E70F400CD9FAA /* Preview Content */,
-				C03B70E226A05D4E00CD9FAA /* Services.swift */,
 				C0E7F71A26AD7F1800CFD930 /* AppDelegate.swift */,
 			);
 			path = Challenge_iOS_B2W;
@@ -229,6 +229,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		C0E7F72F26ADAECC00CFD930 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C03B70E226A05D4E00CD9FAA /* Services.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -263,7 +271,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C03B70C5269E70F400CD9FAA /* Build configuration list for PBXNativeTarget "Challenge_iOS_B2WTests" */;
 			buildPhases = (
-				C40EBFB2CB6B3487FD990024 /* [CP] Check Pods Manifest.lock */,
 				C03B70AA269E70F400CD9FAA /* Sources */,
 				C03B70AB269E70F400CD9FAA /* Frameworks */,
 				C03B70AC269E70F400CD9FAA /* Resources */,
@@ -282,7 +289,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C03B70C8269E70F400CD9FAA /* Build configuration list for PBXNativeTarget "Challenge_iOS_B2WUITests" */;
 			buildPhases = (
-				2B72C5A8D6B4D1023E4531EF /* [CP] Check Pods Manifest.lock */,
 				C03B70B5269E70F400CD9FAA /* Sources */,
 				C03B70B6269E70F400CD9FAA /* Frameworks */,
 				C03B70B7269E70F400CD9FAA /* Resources */,
@@ -375,28 +381,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2B72C5A8D6B4D1023E4531EF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Challenge_iOS_B2W-Challenge_iOS_B2WUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		C0E7F71C26AD810F00CFD930 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -414,28 +398,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n";
-		};
-		C40EBFB2CB6B3487FD990024 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Challenge_iOS_B2WTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

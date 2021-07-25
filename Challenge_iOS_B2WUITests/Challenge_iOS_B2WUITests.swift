@@ -8,14 +8,12 @@
 import XCTest
 
 class Challenge_iOS_B2WUITests: XCTestCase {
-
+    
+    let app = XCUIApplication()
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        app.launch()
     }
 
     override func tearDownWithError() throws {
@@ -23,13 +21,55 @@ class Challenge_iOS_B2WUITests: XCTestCase {
     }
 
     func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
         app.launch()
-
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
+    
+    func testSearch() throws {
+        let searchBar = app.tables
+        searchBar.children(matching: .cell).element(boundBy: 0).children(matching: .other).element(boundBy: 1).children(matching: .other).element.children(matching: .other).element.children(matching: .searchField).element.tap()
+        searchBar/*@START_MENU_TOKEN@*/.buttons["1, Bulbasaur"]/*[[".cells[\"1, Bulbasaur\"].buttons[\"1, Bulbasaur\"]",".buttons[\"1, Bulbasaur\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        sleep(5)
+    }
+    
+    func testLoadMore() throws {
+        let tablesQuery = app.tables
+        let button = tablesQuery/*@START_MENU_TOKEN@*/.buttons["6, Charizard"]/*[[".cells[\"6, Charizard\"].buttons[\"6, Charizard\"]",".buttons[\"6, Charizard\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        button/*@START_MENU_TOKEN@*/.swipeUp()/*[[".swipeUp()",".swipeRight()"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/
+        tablesQuery.buttons["13, Weedle"].swipeUp()
+        tablesQuery.buttons["17, Pidgeotto"].swipeUp()
+    }
+    
+    func testGoToDetails() throws {
+        let pokemon = app.tables.buttons["3, Venusaur"]
+        pokemon.tap()
+        sleep(5)
+    }
+    
+    func testTypeTap() throws {
+        let pokemon = app.tables.buttons["3, Venusaur"]
+        pokemon.tap()
+        let type = app.scrollViews.otherElements
+        type.buttons["poison"].tap()
+    }
+    
+    func testAbilitiesTap() throws {
+        let pokemon = app.tables.buttons["3, Venusaur"]
+        pokemon.tap()
+        let abilitie = app.scrollViews.otherElements
+        abilitie.buttons["Chlorophyll"].tap()
+    }
+    
+    func testVarietyItens() throws {
+        let pokemon = app.tables.buttons["3, Venusaur"]
+        pokemon.tap()
+        app.scrollViews.otherElements.containing(.button, identifier:"Back").children(matching: .button).element(boundBy: 3).tap()
+        sleep(2)
+        let button = app.buttons["venusaur-mega"]
+        print("exists = \(button.exists), hittable = \(button.isHittable)")
+        app.buttons["venusaur-mega"].tap()
+        sleep(5)
+    }
+    
 
     func testLaunchPerformance() throws {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {

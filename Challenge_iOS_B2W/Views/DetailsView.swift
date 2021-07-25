@@ -15,8 +15,7 @@ struct DetailsView: View {
     @State private var showingAbilityView = false
     @State private var showingTypesView = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    //var pokedexNumber = ""
-    @State var selectedPokemon = " "
+    @State var selectedPokemon = "select variety"
     
     var body: some View {
         ZStack(alignment: .top, content: {
