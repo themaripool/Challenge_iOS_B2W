@@ -285,7 +285,6 @@ class DetailsViewModel: ObservableObject{
     
     //MARK: Funcao que usa o id para pegar os pokemons que possuem o mesmo tipo que o tipo selecionado
     func getSameTypePokemons(id: String){
-        print("Pegando pokemons com id = \(id)")
         PokemonService.getSameTypesPokemons(id: id) { results, error  in
             if results != nil {
                 guard let resp = results else {return}
