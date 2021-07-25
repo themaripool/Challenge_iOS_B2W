@@ -274,59 +274,32 @@ struct DetailsView: View {
                         .multilineTextAlignment(.leading)
                 }
                 
-                if detailsViewModel.ids.count > 3{
-                    
-                    VStack{
-                        ForEach (detailsViewModel.ids.indices) { indice in
-                            HStack(){
-                                let id = detailsViewModel.ids[indice]
-                                let name = detailsViewModel.names[indice]
-                                KFImage(URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!)
-                                    .placeholder {
-                                        Image(uiImage: UIImage(named: "placeholder")!)
-                                            .resizable()
-                                            .renderingMode(.original)
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 50, height: 40)
-                                    }
-                                    .resizable()
-                                    .padding(.top, 8.0)
-                                    .frame(width: 90, height: 90)
-                                
-                                Text(name).font(.custom("Arial", size: 16))
+                if detailsViewModel.ids.count != 0 && detailsViewModel.ids.count > 1 {
+                    ScrollView(.horizontal, showsIndicators: true){
+                        HStack{
+                            ForEach (detailsViewModel.ids.indices) { indice in
+                                VStack(alignment: .center){
+                                    let id = detailsViewModel.ids[indice]
+                                    let name = detailsViewModel.names[indice]
+                                    KFImage(URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!)
+                                        .placeholder {
+                                            Image(uiImage: UIImage(named: "placeholder")!)
+                                                .resizable()
+                                                .renderingMode(.original)
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 50, height: 40)
+                                        }
+                                        .resizable()
+                                        .padding(.top, 8.0)
+                                        .frame(width: 110, height: 110)
+                                    
+                                    Text(name).font(.custom("Arial", size: 16))
+                                }
                             }
-                            
-                            Spacer()
                         }
+                        .padding(.bottom, 16)
                     }
-                    .padding()
                     
-                    
-                } else if detailsViewModel.ids.count != 0 && detailsViewModel.ids.count > 1 {
-                    HStack{
-                        ForEach (detailsViewModel.ids.indices) { indice in
-                            VStack(alignment: .center){
-                                let id = detailsViewModel.ids[indice]
-                                let name = detailsViewModel.names[indice]
-                                KFImage(URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(id).png")!)
-                                    .placeholder {
-                                        Image(uiImage: UIImage(named: "placeholder")!)
-                                            .resizable()
-                                            .renderingMode(.original)
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 50, height: 40)
-                                    }
-                                    .resizable()
-                                    .padding(.top, 8.0)
-                                    .frame(width: 90, height: 90)
-                                
-                                Text(name).font(.custom("Arial", size: 16))
-                            }
-                            
-                            Spacer()
-                        }
-                    }
-                    .padding()
                 }
                 else{
                     Text("No Evolution")
