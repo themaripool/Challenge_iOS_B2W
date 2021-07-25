@@ -65,7 +65,7 @@ struct DetailsView: View {
 
                 VStack {
                     
-                    HStack(alignment: .center){
+                    HStack(alignment: .center, spacing: 8){
                         
                         barBackButton
                         
@@ -75,9 +75,13 @@ struct DetailsView: View {
                             .font(.custom("Arial", size: 32))
                             .fontWeight(.bold)
                             .foregroundColor(.white)
+                            .padding(.trailing, 8)
                         
                         Spacer()
-                    }
+                        
+                        Text("")
+                        
+                    }.padding(.horizontal, 8)
                     
                     HStack(alignment: .center) {
                         
@@ -109,7 +113,7 @@ struct DetailsView: View {
                                        }
                                 )
                             }
-                        }
+                        }.padding(.top, 8)
                         
                         Spacer()
                         
@@ -122,7 +126,7 @@ struct DetailsView: View {
                     
                     CarouselView(pokedexNumber: detailsViewModel.pokedexNumber)
                 }
-                .padding(.top, 64.0)
+                .padding(.top, 24.0)
                 .padding(.horizontal, 8.0)
                 
                 
@@ -268,8 +272,6 @@ struct DetailsView: View {
                         .font(.custom("Arial", size: 26))
                         .fontWeight(.semibold)
                         .multilineTextAlignment(.leading)
-                        .padding(.vertical, 8.0)
-                    Spacer()
                 }
                 
                 if detailsViewModel.ids.count > 3{
