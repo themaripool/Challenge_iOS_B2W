@@ -9,12 +9,14 @@ import Foundation
 import Alamofire
 import Combine
 import UIKit
+import SwiftUI
 
 class HomeViewModel: ObservableObject, Identifiable {
 
     @Published var pokemonList                  : [Pokemon] = []
     @Published var nextPage                     : String = ""
     @Published var pokemonListAux               : [Pokemon] = []
+    @State var showingAlert: Bool = false
     
     init() {
         getPokemons()

@@ -47,7 +47,7 @@ struct DetailsView: View {
                 .foregroundColor(.white)
                 .frame(width: 20, height: 20)
                 .onTapGesture {
-                    self.homeViewModel.reloadData() //-> ver bug do carregamento eterno
+                    self.homeViewModel.reloadData() 
                     self.detailsViewModel.refresh()
                     self.presentationMode.wrappedValue.dismiss()
                 }

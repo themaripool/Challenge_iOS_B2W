@@ -15,7 +15,8 @@ struct HomeView: View {
     @ObservedObject var homeViewModel: HomeViewModel
     @ObservedObject var detailsViewModel: DetailsViewModel
     @State private var searchText: String = ""
-    
+    @State var showingAlert: Bool = false
+
     var pkm = [Pokemon(name: "a", url: "")]
 
     var body: some View {
@@ -26,7 +27,10 @@ struct HomeView: View {
                 
             } else {
                 List() {
-                    SearchBar(text: $searchText, detailsViewModel: detailsViewModel, homeViewModel: homeViewModel)
+                    SearchBar(text: $searchText, detailsViewModel: detailsViewModel, homeViewModel: homeViewModel, showingAlert: self.$showingAlert)
+                        .alert(isPresented: $showingAlert) { () -> Alert in
+                            return Alert(title: Text("Oops!"), message: Text("No pokemon found with this id or name"), dismissButton: .default(Text("Got it!")))
+                        }
                     ForEach(self.homeViewModel.pokemonList.indices, id: \.self) { index in
                         let pokemon = self.homeViewModel.pokemonList[index]
                         let id = self.homeViewModel.extractIdFromPokemon(urlPokemon: pokemon.url)
@@ -71,7 +75,8 @@ struct HomeView: View {
                             .padding(.horizontal, 8.0)
                         }
                     }
-                }.onAppear(){searchText = ""}
+                }
+                .onAppear(){searchText = ""}
                 
                 .navigationBarTitle("Pokedex")
                 .navigationViewStyle(StackNavigationViewStyle())
