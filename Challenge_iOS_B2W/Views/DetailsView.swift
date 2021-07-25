@@ -145,7 +145,6 @@ struct DetailsView: View {
                         HStack{
                             Text(selectedPokemon)
                                 .font(.headline)
-                                .foregroundColor(.black)
                                 .padding()
                                 .padding(.horizontal)
                                 .background(Color.gray.opacity(0.3))
@@ -354,7 +353,6 @@ struct AbilityView: View {
             
             Text(text)
                 .font(.custom("Arial", size: 20))
-                .foregroundColor(.black)
                 .padding(.all, 8)
         }
     }
@@ -386,7 +384,6 @@ struct SameTypeView: View {
                     
                     Text(el.name)
                         .font(.custom("Arial", size: 20))
-                        .foregroundColor(.black)
                         .padding(.all, 8)
                 }
             }

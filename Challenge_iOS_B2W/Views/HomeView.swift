@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 import Foundation
+import Kingfisher
 
 struct HomeView: View {
     
@@ -19,50 +20,65 @@ struct HomeView: View {
 
     var body: some View {
         NavigationView {
-            if homeViewModel.pokemonList.isEmpty {
+            if homeViewModel.pokemonList.count == 0{
                 
                 HomeLoadingView()
                 
-            }else{
-               
-                List {
+            } else {
+                List() {
                     SearchBar(text: $searchText, detailsViewModel: detailsViewModel, homeViewModel: homeViewModel)
-                    pokemonList
-                }.onAppear(){
-                    searchText = ""
-                }
+                    ForEach(self.homeViewModel.pokemonList.indices, id: \.self) { index in
+                        let pokemon = self.homeViewModel.pokemonList[index]
+                        let id = self.homeViewModel.extractIdFromPokemon(urlPokemon: pokemon.url)
+                        
+                        NavigationLink(destination:
+                                        DetailsView()
+                                        .environmentObject(detailsViewModel)
+                                        .environmentObject(homeViewModel)
+                                        .navigationBarBackButtonHidden(true)
+                                        .onAppear(){
+                                            detailsViewModel
+                                                .getPokemonsDetails(index: Int(id)!)
+                                            detailsViewModel
+                                                .setVariables(number: id, selected: detailsViewModel.pokemonVarietieNameList.first ?? "")
+                                        }) {
+                            HStack(alignment: .center, spacing: 16){
+                                
+                                Text(id)
+                                    .bold()
+                                    .font(.custom("Arial", size: 32))
+                                    .padding(.top, 8.0)
+                                
+                                Text(pokemon.name.capitalized)
+                                    .bold()
+                                    .font(.custom("Arial", size: 20))
+                                
+                                Spacer()
+                                
+                                KFImage(URL(string: "https://pokeres.bastionbot.org/images/pokemon/\(id).png"))
+                                    .placeholder {
+                                        Image(uiImage: UIImage(named: "placeholder")!)
+                                            .resizable()
+                                            .renderingMode(.original)
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 100, height: 80)
+                                    }
+                                    .resizable()
+                                    .frame(width: 100, height: 80)
+                                
+                            }
+                            .listRowBackground(Color.clear)
+                            .padding(.horizontal, 8.0)
+                        }
+                    }
+                }.onAppear(){searchText = ""}
+                
                 .navigationBarTitle("Pokedex")
+                .navigationViewStyle(StackNavigationViewStyle())
             }
         }
     }
-    
-    var pokemonList: some View {
-        return Group {
-            ForEach(self.homeViewModel.pokemonList.indices, id: \.self) { index in
-                
-                let pokemon = self.homeViewModel.pokemonList[index]
-                let id = self.homeViewModel.extractIdFromPokemon(urlPokemon: pokemon.url)
-                
-               // var _ = print("index \(index) e id \(id) e url \(pokemon.url)")
-                
-                CardListComponent(detailsViewModel: DetailsViewModel(), pokedexNumber: id, pokemonName: pokemon.name, index: index + 1).environmentObject(homeViewModel)
-                    .onAppear {
-                        if self.homeViewModel.pokemonList.last == pokemon && self.homeViewModel.pokemonList.count != 1{
-                            print("ultimo")
-                            self.homeViewModel.loadMore()
-                        }
-                    }
-            }.listRowBackground(Color.init("Background"))
-        }
-    }
 }
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView(homeViewModel: HomeViewModel())
-//    }
-//}
-
 
 struct SearchBar: UIViewRepresentable {
 
@@ -95,6 +111,7 @@ struct SearchBar: UIViewRepresentable {
             PokemonService.getPokemonSearchy(search: text ) { results, error  in
                 if results != nil {
                     self.homeViewModel.pokemonListAux = self.homeViewModel.pokemonList
+                    self.homeViewModel.pokemonList = []
                     guard let name = results?.name, let id = results?.id else {return}
                     self.homeViewModel.pokemonList.append(Pokemon(name: name, url: "https://pokeapi.co/api/v2/pokemon/\(id)/"))
                 } else{
@@ -112,6 +129,7 @@ struct SearchBar: UIViewRepresentable {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.delegate = context.coordinator
         searchBar.autocapitalizationType = .none
+        UIApplication.shared.endEditing()
         return searchBar
     }
 

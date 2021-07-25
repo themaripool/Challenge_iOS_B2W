@@ -23,11 +23,11 @@ class HomeViewModel: ObservableObject, Identifiable {
     public func reloadData() {
         pokemonList = []
         if (!pokemonListAux.isEmpty){ //eh uma busca
-            print("[BUG - RELOAD HOME]: reload de search")
+          //  print("[BUG - RELOAD HOME]: reload de search")
             pokemonList = pokemonListAux
             pokemonListAux = []
         }
-        print("[BUG - RELOAD HOME]: reload normal")
+        //print("[BUG - RELOAD HOME]: reload normal")
         self.nextPage = ""
         getPokemons()
     }
@@ -52,15 +52,14 @@ class HomeViewModel: ObservableObject, Identifiable {
 
     //MARK: Services calls
     func getPokemons(){
-        print("[BUG - RELOAD HOME]: Entrou em get pokemons")
-        self.pokemonList = []
+       // print("[BUG - RELOAD HOME]: Entrou em get pokemons")
         PokemonService.getAllPokemons { results, page, error  in
             if results != [] {
-                print("[BUG - RELOAD HOME]: results n eh vazio")
+               // print("[BUG - RELOAD HOME]: results n eh vazio")
                 self.nextPage = page
-                print("[BUG - RELOAD HOME]: next page = \(self.nextPage)")
+              //  print("[BUG - RELOAD HOME]: next page = \(self.nextPage)")
                 self.pokemonList = results
-                dump(results)
+               // dump(results)
             } else{
                 print("[DEBUG] no results")
             }

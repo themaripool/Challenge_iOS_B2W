@@ -10,13 +10,11 @@
 		C001D0A526A32063007A2FA1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C001D0A426A32063007A2FA1 /* Kingfisher */; };
 		C001D0A826A4AD37007A2FA1 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C001D0A726A4AD37007A2FA1 /* Lottie */; };
 		C034FB6926A0AE3900A34C01 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C034FB6826A0AE3900A34C01 /* DetailsView.swift */; };
-		C03B70A1269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70A0269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift */; };
 		C03B70A3269E70F300CD9FAA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70A2269E70F300CD9FAA /* HomeView.swift */; };
 		C03B70A5269E70F400CD9FAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03B70A4269E70F400CD9FAA /* Assets.xcassets */; };
 		C03B70A8269E70F400CD9FAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03B70A7269E70F400CD9FAA /* Preview Assets.xcassets */; };
 		C03B70B3269E70F400CD9FAA /* Challenge_iOS_B2WTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70B2269E70F400CD9FAA /* Challenge_iOS_B2WTests.swift */; };
 		C03B70BE269E70F400CD9FAA /* Challenge_iOS_B2WUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70BD269E70F400CD9FAA /* Challenge_iOS_B2WUITests.swift */; };
-		C03B70CC269E78F300CD9FAA /* CardListComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70CB269E78F300CD9FAA /* CardListComponent.swift */; };
 		C03B70CF269E899E00CD9FAA /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C03B70CE269E899E00CD9FAA /* Introspect */; };
 		C03B70D626A0530A00CD9FAA /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70D526A0530A00CD9FAA /* Pokemon.swift */; };
 		C03B70DA26A0540600CD9FAA /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70D926A0540600CD9FAA /* HomeViewModel.swift */; };
@@ -27,6 +25,11 @@
 		C0A523B726A74AC2002940E7 /* HomeLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A523B626A74AC2002940E7 /* HomeLoadingView.swift */; };
 		C0A523B926A74BAE002940E7 /* CardShimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A523B826A74BAE002940E7 /* CardShimmer.swift */; };
 		C0E7F6D626AB0BAB00CFD930 /* ImageCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E7F6D526AB0BAB00CFD930 /* ImageCarouselView.swift */; };
+		C0E7F71926AD7C7B00CFD930 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E7F71826AD7C7B00CFD930 /* SceneDelegate.swift */; };
+		C0E7F71B26AD7F1800CFD930 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E7F71A26AD7F1800CFD930 /* AppDelegate.swift */; };
+		C0E7F71F26AD87B800CFD930 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C0E7F71E26AD87B800CFD930 /* FirebaseAnalytics */; };
+		C0E7F72126AD87B800CFD930 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = C0E7F72026AD87B800CFD930 /* FirebaseCrashlytics */; };
+		C0E7F72326AD8B5500CFD930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0E7F72226AD8B5500CFD930 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +52,6 @@
 /* Begin PBXFileReference section */
 		C034FB6826A0AE3900A34C01 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		C03B709D269E70F300CD9FAA /* Challenge_iOS_B2W.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge_iOS_B2W.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C03B70A0269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge_iOS_B2WApp.swift; sourceTree = "<group>"; };
 		C03B70A2269E70F300CD9FAA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C03B70A4269E70F400CD9FAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C03B70A7269E70F400CD9FAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -60,7 +62,6 @@
 		C03B70B9269E70F400CD9FAA /* Challenge_iOS_B2WUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Challenge_iOS_B2WUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03B70BD269E70F400CD9FAA /* Challenge_iOS_B2WUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge_iOS_B2WUITests.swift; sourceTree = "<group>"; };
 		C03B70BF269E70F400CD9FAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C03B70CB269E78F300CD9FAA /* CardListComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListComponent.swift; sourceTree = "<group>"; };
 		C03B70D526A0530A00CD9FAA /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		C03B70D926A0540600CD9FAA /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		C03B70DD26A0543500CD9FAA /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
@@ -68,6 +69,9 @@
 		C0A523B626A74AC2002940E7 /* HomeLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLoadingView.swift; sourceTree = "<group>"; };
 		C0A523B826A74BAE002940E7 /* CardShimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardShimmer.swift; sourceTree = "<group>"; };
 		C0E7F6D526AB0BAB00CFD930 /* ImageCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarouselView.swift; sourceTree = "<group>"; };
+		C0E7F71826AD7C7B00CFD930 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C0E7F71A26AD7F1800CFD930 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C0E7F72226AD8B5500CFD930 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,8 @@
 			files = (
 				C001D0A526A32063007A2FA1 /* Kingfisher in Frameworks */,
 				C03B70CF269E899E00CD9FAA /* Introspect in Frameworks */,
+				C0E7F71F26AD87B800CFD930 /* FirebaseAnalytics in Frameworks */,
+				C0E7F72126AD87B800CFD930 /* FirebaseCrashlytics in Frameworks */,
 				C03B70E126A05B3300CD9FAA /* Alamofire in Frameworks */,
 				C001D0A826A4AD37007A2FA1 /* Lottie in Frameworks */,
 				C057BF2126A7A9C50033DA3A /* PartialSheet in Frameworks */,
@@ -131,14 +137,16 @@
 		C03B709F269E70F300CD9FAA /* Challenge_iOS_B2W */ = {
 			isa = PBXGroup;
 			children = (
+				C0E7F72226AD8B5500CFD930 /* GoogleService-Info.plist */,
 				C03B70D826A053EA00CD9FAA /* ViewModel */,
 				C03B70D726A053E400CD9FAA /* Views */,
 				C03B70D426A052F700CD9FAA /* Models */,
-				C03B70A0269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift */,
 				C03B70A4269E70F400CD9FAA /* Assets.xcassets */,
+				C0E7F71826AD7C7B00CFD930 /* SceneDelegate.swift */,
 				C03B70A9269E70F400CD9FAA /* Info.plist */,
 				C03B70A6269E70F400CD9FAA /* Preview Content */,
 				C03B70E226A05D4E00CD9FAA /* Services.swift */,
+				C0E7F71A26AD7F1800CFD930 /* AppDelegate.swift */,
 			);
 			path = Challenge_iOS_B2W;
 			sourceTree = "<group>";
@@ -181,7 +189,6 @@
 			isa = PBXGroup;
 			children = (
 				C03B70A2269E70F300CD9FAA /* HomeView.swift */,
-				C03B70CB269E78F300CD9FAA /* CardListComponent.swift */,
 				C034FB6826A0AE3900A34C01 /* DetailsView.swift */,
 				C0A523B626A74AC2002940E7 /* HomeLoadingView.swift */,
 				C0A523B826A74BAE002940E7 /* CardShimmer.swift */,
@@ -209,6 +216,7 @@
 				C03B7099269E70F300CD9FAA /* Sources */,
 				C03B709A269E70F300CD9FAA /* Frameworks */,
 				C03B709B269E70F300CD9FAA /* Resources */,
+				C0E7F71C26AD810F00CFD930 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -221,6 +229,8 @@
 				C001D0A426A32063007A2FA1 /* Kingfisher */,
 				C001D0A726A4AD37007A2FA1 /* Lottie */,
 				C057BF2026A7A9C50033DA3A /* PartialSheet */,
+				C0E7F71E26AD87B800CFD930 /* FirebaseAnalytics */,
+				C0E7F72026AD87B800CFD930 /* FirebaseCrashlytics */,
 			);
 			productName = Challenge_iOS_B2W;
 			productReference = C03B709D269E70F300CD9FAA /* Challenge_iOS_B2W.app */;
@@ -301,6 +311,7 @@
 				C001D0A326A32063007A2FA1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				C001D0A626A4AD37007A2FA1 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				C057BF1F26A7A9C50033DA3A /* XCRemoteSwiftPackageReference "PartialSheet" */,
+				C0E7F71D26AD87B800CFD930 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = C03B709E269E70F300CD9FAA /* Products */;
 			projectDirPath = "";
@@ -320,6 +331,7 @@
 			files = (
 				C03B70A8269E70F400CD9FAA /* Preview Assets.xcassets in Resources */,
 				C03B70A5269E70F400CD9FAA /* Assets.xcassets in Resources */,
+				C0E7F72326AD8B5500CFD930 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +374,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C0E7F71C26AD810F00CFD930 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILD_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n";
+		};
 		C40EBFB2CB6B3487FD990024 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -391,17 +421,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0E7F71B26AD7F1800CFD930 /* AppDelegate.swift in Sources */,
 				C03B70A3269E70F300CD9FAA /* HomeView.swift in Sources */,
 				C03B70D626A0530A00CD9FAA /* Pokemon.swift in Sources */,
 				C0E7F6D626AB0BAB00CFD930 /* ImageCarouselView.swift in Sources */,
-				C03B70CC269E78F300CD9FAA /* CardListComponent.swift in Sources */,
 				C0A523B726A74AC2002940E7 /* HomeLoadingView.swift in Sources */,
 				C03B70E326A05D4E00CD9FAA /* Services.swift in Sources */,
 				C03B70DA26A0540600CD9FAA /* HomeViewModel.swift in Sources */,
 				C034FB6926A0AE3900A34C01 /* DetailsView.swift in Sources */,
-				C03B70A1269E70F300CD9FAA /* Challenge_iOS_B2WApp.swift in Sources */,
 				C03B70DE26A0543500CD9FAA /* DetailsViewModel.swift in Sources */,
 				C0A523B926A74BAE002940E7 /* CardShimmer.swift in Sources */,
+				C0E7F71926AD7C7B00CFD930 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,7 +501,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -559,6 +589,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Challenge_iOS_B2W/Preview Content\"";
 				DEVELOPMENT_TEAM = Y4W6JT86B2;
 				ENABLE_PREVIEWS = YES;
@@ -568,6 +599,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.themaripool.Challenge-B2W";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -590,6 +622,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.themaripool.Challenge-B2W";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -763,6 +796,14 @@
 				minimumVersion = 2.1.12;
 			};
 		};
+		C0E7F71D26AD87B800CFD930 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = exactVersion;
+				version = 8.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -790,6 +831,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C057BF1F26A7A9C50033DA3A /* XCRemoteSwiftPackageReference "PartialSheet" */;
 			productName = PartialSheet;
+		};
+		C0E7F71E26AD87B800CFD930 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0E7F71D26AD87B800CFD930 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		C0E7F72026AD87B800CFD930 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0E7F71D26AD87B800CFD930 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

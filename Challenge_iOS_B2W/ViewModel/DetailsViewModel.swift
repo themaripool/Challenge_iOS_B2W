@@ -192,7 +192,7 @@ class DetailsViewModel: ObservableObject{
                 }
             }
         }
-        print(ids)
+       // print(ids)
     }
     
     func getVarietiesIds(varieties: [Varieties]){
