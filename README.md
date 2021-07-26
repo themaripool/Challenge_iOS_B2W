@@ -10,10 +10,10 @@ e a imagem da logo deste app foi encontrada no [icons8](https://icons8.com.br/ic
 
 Este projeto possui as seguintes requisitos funcionais:
 * **Tela de home**
-<br> Tela inicial com lista com todos os Pokémons.
-<br> Busca por ID ou Nome. 
-<br> Paginação com endless scrolling.
-<br> Foto default do Pokémon na listagem.
+<br> Tela inicial com lista com todos os Pokémons;
+<br> Busca por ID ou Nome;
+<br> Paginação com endless scrolling;
+<br> Foto default do Pokémon na listagem;
 
 * **Tela de detalhes**
 <br> Nome e ID;
@@ -23,13 +23,13 @@ defense, speed);
 <br> Exibir suas Habilidades (Run Away, Adaptability, Synchronize etc);
 <br> Ao tocar em uma habilidade, exibir um modal com a descrição;
 <br> Exibir seus tipos (electric, ground, water, fire etc);
-<br> Ao tocar em um tipo, exibir a lista dos Pokémons desse mesmo tipo; (apenas exibição)
-<br> Exibir a cadeia de evolução do Pokémon; (apenas exibição)
+<br> Ao tocar em um tipo, exibir a lista dos Pokémons desse mesmo tipo - (apenas exibição); 
+<br> Exibir a cadeia de evolução do Pokémon - (apenas exibição);
 <br> Exibir um picker que permita selecionar as variações do Pokémon (ao
-selecionar uma variação, o app deve carregar automaticamente os dados da variação selecionada).
+selecionar uma variação, o app deve carregar automaticamente os dados da variação selecionada);
      
 * **Imagens do projeto**     
-<p align="center">
+<p align="left">
   <img src="Project_images/home-modoClaro.png" alt="Size Limit CLI" width="150">
   <img src="Project_images/detalhes-modoClaro.png" alt="Size Limit CLI" width="150">
   <img src="Project_images/detalhes-variedade.png" alt="Size Limit CLI" width="150">
