@@ -23,12 +23,6 @@ struct K {
         static let INTERNAL             = "Server Error: Internal Error"
         static let CONNECTION           = "Internet Connection Error"
     }
-    struct REQUEST {
-        static let SUCCESS_STATUS_CODE              = 200...307
-        static let EMPTY_CONTENT_STATUS_CODE        = 404
-        static let TOO_MANY_REQUEST_STATUS_CODE     = 429
-        static let INTERNAL_ERROR_STATUS_CODE       = 400...599
-    }
 }
 
 struct APIError {
@@ -36,7 +30,7 @@ struct APIError {
     let message: String
 }
 
-enum PokemonList {
+enum PokemonListAPIResp {
     case Success([Pokemon], String)
     case Fail(APIError)
 }

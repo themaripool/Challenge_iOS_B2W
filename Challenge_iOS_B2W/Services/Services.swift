@@ -10,7 +10,7 @@ import Alamofire
 
 class PokemonService: NSObject {
 
-    static func getAllPokemons(completion: @escaping (PokemonList) -> Void){
+    static func getAllPokemons(completion: @escaping (PokemonListAPIResp) -> Void){
         let url = K.SERVICE.BASE_URL
         
         var pokemonList : [Pokemon] = []
@@ -43,7 +43,7 @@ class PokemonService: NSObject {
         }
     }
     
-    static func getNextAllPokemons(pageUrl: String, completion: @escaping (PokemonList) -> Void){
+    static func getNextAllPokemons(pageUrl: String, completion: @escaping (PokemonListAPIResp) -> Void){
         
         var pokemonList : [Pokemon] = []
         var nextPage = ""
