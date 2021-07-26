@@ -36,7 +36,7 @@ struct DetailsView: View {
                 }.edgesIgnoringSafeArea(.all)
                 .navigationBarHidden(true)
             }
-        }).transition(.opacity.animation(.easeIn(duration: 5)))
+        })
     }
     
     var barBackButton: some View {
