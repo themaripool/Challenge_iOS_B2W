@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C001D0A526A32063007A2FA1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C001D0A426A32063007A2FA1 /* Kingfisher */; };
-		C001D0A826A4AD37007A2FA1 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C001D0A726A4AD37007A2FA1 /* Lottie */; };
 		C034FB6926A0AE3900A34C01 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C034FB6826A0AE3900A34C01 /* DetailsView.swift */; };
 		C03B70A3269E70F300CD9FAA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70A2269E70F300CD9FAA /* HomeView.swift */; };
 		C03B70A5269E70F400CD9FAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03B70A4269E70F400CD9FAA /* Assets.xcassets */; };
@@ -21,7 +20,6 @@
 		C03B70DE26A0543500CD9FAA /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70DD26A0543500CD9FAA /* DetailsViewModel.swift */; };
 		C03B70E126A05B3300CD9FAA /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C03B70E026A05B3300CD9FAA /* Alamofire */; };
 		C03B70E326A05D4E00CD9FAA /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70E226A05D4E00CD9FAA /* Services.swift */; };
-		C057BF2126A7A9C50033DA3A /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C057BF2026A7A9C50033DA3A /* PartialSheet */; };
 		C0A523B726A74AC2002940E7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A523B626A74AC2002940E7 /* LoadingView.swift */; };
 		C0A523B926A74BAE002940E7 /* CardShimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A523B826A74BAE002940E7 /* CardShimmer.swift */; };
 		C0E7F6D626AB0BAB00CFD930 /* ImageCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E7F6D526AB0BAB00CFD930 /* ImageCarouselView.swift */; };
@@ -98,8 +96,6 @@
 				C0E7F71F26AD87B800CFD930 /* FirebaseAnalytics in Frameworks */,
 				C0E7F72126AD87B800CFD930 /* FirebaseCrashlytics in Frameworks */,
 				C03B70E126A05B3300CD9FAA /* Alamofire in Frameworks */,
-				C001D0A826A4AD37007A2FA1 /* Lottie in Frameworks */,
-				C057BF2126A7A9C50033DA3A /* PartialSheet in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,9 +203,6 @@
 				C0E7F72426AD9DB100CFD930 /* Components */,
 				C03B70A2269E70F300CD9FAA /* HomeView.swift */,
 				C034FB6826A0AE3900A34C01 /* DetailsView.swift */,
-				C0A523B626A74AC2002940E7 /* LoadingView.swift */,
-				C0A523B826A74BAE002940E7 /* CardShimmer.swift */,
-				C0E7F6D526AB0BAB00CFD930 /* ImageCarouselView.swift */,
 				C0E7F72726AD9E5A00CFD930 /* SameTypeView.swift */,
 				C0E7F72926AD9E7900CFD930 /* CarouselView.swift */,
 				C0E7F72D26AD9EBD00CFD930 /* AbilityView.swift */,
@@ -229,6 +222,9 @@
 		C0E7F72426AD9DB100CFD930 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				C0E7F6D526AB0BAB00CFD930 /* ImageCarouselView.swift */,
+				C0A523B626A74AC2002940E7 /* LoadingView.swift */,
+				C0A523B826A74BAE002940E7 /* CardShimmer.swift */,
 				C0E7F72526AD9DC400CFD930 /* SearchBar.swift */,
 				C0E7F72B26AD9E9E00CFD930 /* ProgressBar.swift */,
 			);
@@ -264,8 +260,6 @@
 				C03B70CE269E899E00CD9FAA /* Introspect */,
 				C03B70E026A05B3300CD9FAA /* Alamofire */,
 				C001D0A426A32063007A2FA1 /* Kingfisher */,
-				C001D0A726A4AD37007A2FA1 /* Lottie */,
-				C057BF2026A7A9C50033DA3A /* PartialSheet */,
 				C0E7F71E26AD87B800CFD930 /* FirebaseAnalytics */,
 				C0E7F72026AD87B800CFD930 /* FirebaseCrashlytics */,
 			);
@@ -344,8 +338,6 @@
 				C03B70CD269E899E00CD9FAA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				C03B70DF26A05B3300CD9FAA /* XCRemoteSwiftPackageReference "Alamofire" */,
 				C001D0A326A32063007A2FA1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				C001D0A626A4AD37007A2FA1 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				C057BF1F26A7A9C50033DA3A /* XCRemoteSwiftPackageReference "PartialSheet" */,
 				C0E7F71D26AD87B800CFD930 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = C03B709E269E70F300CD9FAA /* Products */;
@@ -762,14 +754,6 @@
 				minimumVersion = 6.3.0;
 			};
 		};
-		C001D0A626A4AD37007A2FA1 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.2.3;
-			};
-		};
 		C03B70CD269E899E00CD9FAA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
@@ -784,14 +768,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.4.3;
-			};
-		};
-		C057BF1F26A7A9C50033DA3A /* XCRemoteSwiftPackageReference "PartialSheet" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AndreaMiotto/PartialSheet.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.12;
 			};
 		};
 		C0E7F71D26AD87B800CFD930 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
@@ -810,11 +786,6 @@
 			package = C001D0A326A32063007A2FA1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		C001D0A726A4AD37007A2FA1 /* Lottie */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C001D0A626A4AD37007A2FA1 /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
-		};
 		C03B70CE269E899E00CD9FAA /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C03B70CD269E899E00CD9FAA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
@@ -824,11 +795,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C03B70DF26A05B3300CD9FAA /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		C057BF2026A7A9C50033DA3A /* PartialSheet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C057BF1F26A7A9C50033DA3A /* XCRemoteSwiftPackageReference "PartialSheet" */;
-			productName = PartialSheet;
 		};
 		C0E7F71E26AD87B800CFD930 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

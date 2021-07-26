@@ -150,7 +150,6 @@ class PokemonService: NSObject {
     static func getSearchedPokemon(search: String, completion: @escaping (DetailsAPIResp) -> Void){
         
         let url = K.SERVICE.BASE_URL + "\(search)/"
-        print("\(search) \(url)")
                         
             AF.request(url).responseData { response in
                 guard let statusCode = response.response?.statusCode else {return}

@@ -9,7 +9,6 @@ import SwiftUI
 import UIKit
 import Foundation
 import Kingfisher
-import PartialSheet
 
 struct HomeView: View {
     
