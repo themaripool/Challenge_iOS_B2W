@@ -224,82 +224,85 @@ class DetailsViewModel: ObservableObject{
     
     //MARK: Função que retorna os detalhes do pokemon
     func getPokemonsDetails(index: Int){
-        PokemonService.getDetailsPokemons(id: index) { results, error  in
-            if results != nil {
-                guard let resp = results else {return}
-                self.pokemonDetailsList = resp
-                self.SpeciesId = self.extractSpeciesId(urlSpecies: resp.species.url)
+        PokemonService.getDetailsPokemons(id: index) { results in
+            switch results {
+            case .Success(let list):
+                self.pokemonDetailsList = list
+                self.SpeciesId = self.extractSpeciesId(urlSpecies: list.species.url)
                 self.getSpecies(id: Int(self.SpeciesId)!)
-                for element in resp.types {
+                for element in list.types {
                     let id =  self.extractTypeId(urlPokemon: element.type.url)
                     self.pokemonTypesId.append(id)
                 }
-            } else{
-                print("[DEBUG]: no results no details")
+            case .Fail(let error):
+                print("Error: \(error)")
             }
         }
     }
     
     //MARK: Função que retorna a espécie do pokemon
     func getSpecies(id: Int){
-        PokemonService.getSpecies(id: id) { results, error  in
-            if results != nil {
-                guard let resp = results else {return}
-                self.pokemonSpecies = resp
-                self.ChainId = self.extractChainId(urlChain: resp.evolution_chain.url)
+        PokemonService.getSpecies(id: id) { results in
+            switch results  {
+            case .Success(let list):
+                self.pokemonSpecies = list
+                self.ChainId = self.extractChainId(urlChain: list.evolution_chain.url)
                 self.getChain(id: self.ChainId)
-                self.hasVarieties = resp.varieties.count > 1 ? true :  false
-                self.getVarietiesIds(varieties:  resp.varieties)
-            } else{
-                print("[DEBUG] no results no species")
+                self.hasVarieties = list.varieties.count > 1 ? true :  false
+                self.getVarietiesIds(varieties:  list.varieties)
+            case .Fail(let error):
+                print("Error: \(error)")
             }
+            
         }
     }
     
     //MARK: Função que retorna a cadeia evolutiva do pokemon
     func getChain(id: String){
-        PokemonService.getEvolutionChain(id: id) { results, error  in
-            if results != nil {
-                guard let resp = results else {return}
-                self.pokemonEvolutionChain = resp
-                self.getPokemonsIDInChain(elements: resp)
-            } else{
-                print("[DEBUG] no results no species")
+        PokemonService.getEvolutionChain(id: id) { results in
+            switch results {
+            case .Success(let aux):
+                self.pokemonEvolutionChain = aux
+                self.getPokemonsIDInChain(elements: aux)
+            case .Fail(let error):
+                print("Error: \(error)")
             }
         }
     }
     
     //MARK: Função que retorna os dados de determinada habilidade
     func getAbilityDetails(index: Int){
-        PokemonService.getPokemonAbility(id: index) { results, error  in
-            if results != nil {
-                self.pokemonAbilityDetails = results
-            } else{
-                print("[DEBUG] no results no details")
+        PokemonService.getPokemonAbility(id: index) { results in
+            switch results {
+            case .Success(let aux):
+                self.pokemonAbilityDetails = aux
+            case .Fail(let error):
+                print("Error: \(error)")
             }
         }
+        
     }
     
     //MARK: Função que busca pokemon pelo nome ou id
     func getPokemonsSearch(search: String){
-        PokemonService.getSearchedPokemon(search: search ) { results, error  in
-            if results != nil {
-                guard let resp = results else {return}
-                self.pokemonSearched = resp
-            } else{
-                print("[DEBUG] no results")
+        PokemonService.getSearchedPokemon(search: search ) { results in
+            switch results {
+            case .Success(let aux):
+                self.pokemonSearched = aux
+            case .Fail(let error):
+                print("Error: \(error)")
             }
         }
     }
     
     //MARK: Função que usa o id para retornar os pokemons que possuem o mesmo tipo que o tipo selecionado
     func getSameTypePokemons(id: String){
-        PokemonService.getSameTypesPokemons(id: id) { results, error  in
-            if results != nil {
-                guard let resp = results else {return}
-                self.sameTypePokemon = resp.pokemon
-            } else{
-                print("[DEBUG] no results")
+        PokemonService.getSameTypesPokemons(id: id) { results in
+            switch results {
+            case .Success(let aux):
+                self.sameTypePokemon = aux.pokemon
+            case .Fail(let error):
+                print("Error: \(error)")
             }
         }
     }

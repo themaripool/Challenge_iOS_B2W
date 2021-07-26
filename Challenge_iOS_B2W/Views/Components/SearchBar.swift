@@ -41,15 +41,18 @@ struct SearchBar: UIViewRepresentable {
             self.detailsViewModel.getPokemonsSearch(search: text)
             UIApplication.shared.endEditing()
 
-            PokemonService.getSearchedPokemon(search: text ) { results, error  in
-                if results != nil {
+            PokemonService.getSearchedPokemon(search: text ) { results in
+                switch results {
+                    case .Success(let list):
                     self.homeViewModel.pokemonListAux = self.homeViewModel.pokemonList
                     self.homeViewModel.pokemonList = []
-                    guard let name = results?.name, let id = results?.id else {return}
+                    let name = list.name
+                    let id = list.id
                     self.homeViewModel.pokemonList.append(Pokemon(name: name, url: "https://pokeapi.co/api/v2/pokemon/\(id)/"))
-                } else{
+                case .Fail(let error):
                     UIApplication.shared.endEditing()
                     self.showingAlert.toggle()
+                    print("Error: \(error)")
                 }
             }
         }

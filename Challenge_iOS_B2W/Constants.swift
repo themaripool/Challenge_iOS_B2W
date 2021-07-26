@@ -40,3 +40,28 @@ enum PokemonList {
     case Success([Pokemon], String)
     case Fail(APIError)
 }
+
+enum DetailsAPIResp {
+    case Success(Details)
+    case Fail(APIError)
+}
+
+enum AbilityDetailAPIResp{
+    case Success(AbilityDetail)
+    case Fail(APIError)
+}
+
+enum PokemonSpeciesAPIResp{
+    case Success(PokemonSpecies)
+    case Fail(APIError)
+}
+
+enum ChainAPIResp{
+    case Success(Chain)
+    case Fail(APIError)
+}
+
+enum SameTypePokemonAPIResp{
+    case Success(SameTypePokemon)
+    case Fail(APIError)
+}
