@@ -1,4 +1,4 @@
-# Challenge_iOS_B2W
+# Desafio iOS B2W
 
 <img src="Project_images/logo.png" align="right"
      alt="Size Limit logo by Anton Lovchikov" width="120" height="150">
