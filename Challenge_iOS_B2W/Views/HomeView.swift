@@ -72,6 +72,10 @@ struct HomeView: View {
                             }
                             .listRowBackground(Color.clear)
                             .padding(.horizontal, 8.0)
+                        }.onAppear(){
+                            if homeViewModel.pokemonList.last == pokemon && homeViewModel.pokemonList.count > 1 {
+                                homeViewModel.loadMore()
+                            }
                         }
                     }
                 }
