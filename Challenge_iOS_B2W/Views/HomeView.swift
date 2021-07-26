@@ -22,10 +22,11 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            if homeViewModel.pokemonList.count == 0{
-                LoadingView()
-            } else {
-                List() {
+            
+            List() {
+                if homeViewModel.pokemonList.count == 0{
+                    LoadingView()
+                } else {
                     SearchBar(text: $searchText, detailsViewModel: detailsViewModel, homeViewModel: homeViewModel, showingAlert: self.$showingAlert)
                         .alert(isPresented: $showingAlert) { () -> Alert in
                             return Alert(title: Text("Oops!"), message: Text("No pokemon found with this id or name"), dismissButton: .default(Text("Got it!")))
@@ -79,10 +80,10 @@ struct HomeView: View {
                         }
                     }
                 }
-                .onAppear(){searchText = ""}
-                .navigationBarTitle("Pokedex")
-                .navigationViewStyle(StackNavigationViewStyle())
-            }
+                
+            }.onAppear(){searchText = ""}
+            .navigationBarTitle("Pokedex")
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }
