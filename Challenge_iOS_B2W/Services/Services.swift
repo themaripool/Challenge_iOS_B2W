@@ -10,59 +10,78 @@ import Alamofire
 
 class PokemonService: NSObject {
 
-    static func getAllPokemons(completion: @escaping ([Pokemon], String, Error?) -> Void){
-            let url = "https://pokeapi.co/api/v2/pokemon/"
-            
-            var pokemonList : [Pokemon] = []
-            var nextPage = ""
-            
-            AF.request(url).responseData { response in
-                switch response.result {
-                case .failure(let error):
-                    print(error)
-                case .success(let data):
+    static func getAllPokemons(completion: @escaping (PokemonList) -> Void){
+        let url = K.SERVICE.BASE_URL
+        
+        var pokemonList : [Pokemon] = []
+        var nextPage = ""
+        
+        AF.request(url).responseData { response in
+            guard let statusCode = response.response?.statusCode else {return}
+            switch response.result {
+            case .failure(_):
+                completion(.Fail(APIError(code: statusCode, message: K.ERROR.DEFAULT)))
+            case .success(let data):
+                switch statusCode {
+                case 200...307:
                     do {
                         let root = try JSONDecoder().decode(Root.self, from: data)
                         pokemonList = root.results
                         nextPage = root.next
-                        completion(pokemonList, nextPage , nil)
-                    } catch let error {
-                        completion([], "", error)
-                        print(error)
+                        completion(.Success(pokemonList, nextPage))
+                    } catch _ {
+                        completion(.Fail(APIError(code: statusCode, message: K.ERROR.DEFAULT)))
                     }
-                    
+                case 404:
+                    completion(.Fail(APIError(code: statusCode, message: K.ERROR.EMPTY_CONTENT)))
+                case 429:
+                    completion(.Fail(APIError(code: statusCode, message: K.ERROR.TOO_MANY_REQUESTS)))
+                default:
+                    completion(.Fail(APIError(code: statusCode, message: K.ERROR.DEFAULT)))
                 }
             }
         }
+    }
     
-    static func getNextAllPokemons(pageUrl: String, completion: @escaping ([Pokemon], String, Error?) -> Void){
-            
-            var pokemonList : [Pokemon] = []
-            var nextPage = ""
-            
-            AF.request(pageUrl).responseData { response in
-                switch response.result {
-                case .failure(let error):
-                    print(error)
-                case .success(let data):
-                    do {
-                        let root = try JSONDecoder().decode(Root.self, from: data)
-                        pokemonList = root.results
-                        nextPage = root.next
-                        completion(pokemonList,nextPage, nil)
-                    } catch let error {
-                        completion([], "", error)
-                        print(error)
-                    }
-                    
+    static func getNextAllPokemons(pageUrl: String, completion: @escaping (PokemonList) -> Void){
+        
+        var pokemonList : [Pokemon] = []
+        var nextPage = ""
+        
+        AF.request(pageUrl).responseData { response in
+            guard let statusCode = response.response?.statusCode else {return}
+            switch response.result {
+            case .failure(_):
+                completion(.Fail(APIError(code: statusCode, message: K.ERROR.DEFAULT)))
+            case .success(let data):
+                switch statusCode {
+                    case 200...307:
+                        do {
+                            let root = try JSONDecoder().decode(Root.self, from: data)
+                            pokemonList = root.results
+                            nextPage = root.next
+                            completion(.Success(pokemonList, nextPage))
+                        } catch let error {
+                            completion(.Fail(APIError(code: statusCode, message: K.ERROR.DEFAULT)))
+                            print(error)
+                        }
+                    case 404:
+                        completion(.Fail(APIError(code: statusCode, message: K.ERROR.EMPTY_CONTENT)))
+                    case 429:
+                        completion(.Fail(APIError(code: statusCode, message: K.ERROR.TOO_MANY_REQUESTS)))
+                    default:
+                        completion(.Fail(APIError(code: statusCode, message: K.ERROR.DEFAULT)))
                 }
+                
             }
         }
+    }
+
     
     
     static func getDetailsPokemons(id: Int, completion: @escaping (Details?, Error?) -> Void){
         
-            let url = "https://pokeapi.co/api/v2/pokemon/\(id)/"
+        let url = K.SERVICE.BASE_URL + "\(id)/"
             
             AF.request(url).responseData { response in
                 switch response.result {
@@ -84,7 +103,7 @@ class PokemonService: NSObject {
     
     static func getPokemonAbility(id: Int, completion: @escaping (AbilityDetail, Error?) -> Void){
         
-        let url = "https://pokeapi.co/api/v2/ability/\(id)/"
+        let url = K.SERVICE.ABILITY_URL + "\(id)/"
             
         var abDetail : AbilityDetail = AbilityDetail(effect_entries: [])
             
@@ -106,9 +125,9 @@ class PokemonService: NSObject {
             }
         }
     
-    static func getPokemonSearchy(search: String, completion: @escaping (Details?, Error?) -> Void){
+    static func getSearchedPokemon(search: String, completion: @escaping (Details?, Error?) -> Void){
         
-        let url = "https://pokeapi.co/api/v2/pokemon/\(search)/"
+        let url = K.SERVICE.BASE_URL + "\(search)/"
         print("\(search) \(url)")
                         
             AF.request(url).responseData { response in
@@ -131,7 +150,7 @@ class PokemonService: NSObject {
     
     static func getSpecies(id: Int, completion: @escaping (PokemonSpecies?, Error?) -> Void){
         
-        let url = "https://pokeapi.co/api/v2/pokemon-species/\(id)/"
+        let url = K.SERVICE.SPECIES_URL + "\(id)/"
         
         AF.request(url).responseData { response in
             switch response.result {
@@ -151,11 +170,9 @@ class PokemonService: NSObject {
         }
     }
     
-    //https://pokeapi.co/api/v2/evolution-chain/{id}/
-    
     static func getEvolutionChain(id: String, completion: @escaping (Chain?, Error?) -> Void){
         
-        let url = "https://pokeapi.co/api/v2/evolution-chain/\(id)/"
+        let url = K.SERVICE.EVCHAIN_URL + "\(id)/"
         
         AF.request(url).responseData { response in
             switch response.result {
@@ -177,7 +194,7 @@ class PokemonService: NSObject {
     
     static func getSameTypesPokemons(id: String, completion: @escaping (SameTypePokemon?, Error?) -> Void){
         
-        let url = "https://pokeapi.co/api/v2/type/\(id)/"
+        let url = K.SERVICE.TYPE_URL + "\(id)/"
         
         AF.request(url).responseData { response in
             switch response.result {
@@ -198,38 +215,3 @@ class PokemonService: NSObject {
     }
     
 }
-
-
-
-
-
-//func loadJSON() {
-//    let url = "https://pokeapi.co/api/v2/pokemon/"
-//    guard let urlObj = URL(string: url) else { return }
-//
-//    URLSession.shared.dataTask(with: urlObj) {(data, response, error) in
-//        guard let data = data else { return }
-//
-//        do {
-//            let pokedex = try JSONDecoder().decode(Pokedex.self, from: data)
-//
-//            for pokemon in pokedex.results {
-//                guard let jsonURL = pokemon.url else { return }
-//                guard let newURL = URL(string: jsonURL) else { return }
-//
-//                URLSession.shared.dataTask(with: newURL) {(data, response, error) in
-//                    guard let data = data else { return }
-//
-//                    do {
-//                        let load = try JSONDecoder().decode(Pokemon.self, from: data)
-//                        self.pokemons.append(load)
-//                    } catch let jsonErr {
-//                        print("Error serializing inner JSON:", jsonErr)
-//                    }
-//                }.resume()
-//            }
-//        } catch let jsonErr{
-//            print("Error serializing JSON: ", jsonErr)
-//        }
-//        }.resume()
-//}

@@ -20,13 +20,13 @@ struct DetailsView: View {
     var body: some View {
         ZStack(alignment: .top, content: {
             
-            if (detailsViewModel.pokemonChain.chain.species.name == ""){
-                HomeLoadingView()
+            if (detailsViewModel.pokemonEvolutionChain.chain.species.name == ""){
+                LoadingView()
             }else{
                 ScrollView {
                     PokemonHeader
                     VStack {
-                        if(detailsViewModel.pokemonEvChain.varieties.count > 1){
+                        if(detailsViewModel.pokemonSpecies.varieties.count > 1){
                             pickerView
                         }
                         PokemonStats
@@ -167,7 +167,7 @@ struct DetailsView: View {
                         let id = detailsViewModel.idsVarieties[index]
                         var _ = self.detailsViewModel.refresh()
                         var _ = self.detailsViewModel.getPokemonsDetails(index: id)
-                        var _ = self.detailsViewModel.setVariables(number: "\(id)", selected: selectedPokemon)
+                        var _ = self.detailsViewModel.setVariables(number: "\(id)")
                     }
                 }
             }
@@ -253,13 +253,9 @@ struct DetailsView: View {
                 }
             }
             .padding(.horizontal, 8.0)
-            
-            
         }
-        
     }
     
-    //TODO: Se pokemon n evoluir, colocar um aviso
     var PokemonEvolutions: some View {
         
         //https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png
@@ -308,11 +304,5 @@ struct DetailsView: View {
             .padding(.horizontal, 8.0)
         }
         
-    }
-}
-
-struct DetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailsView().environmentObject(DetailsViewModel())
     }
 }

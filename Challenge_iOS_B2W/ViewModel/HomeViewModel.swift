@@ -22,16 +22,20 @@ class HomeViewModel: ObservableObject, Identifiable {
         getPokemons()
     }
     
+    //MARK: Funções para reload de tela
+    
     public func reloadData() {
         UIApplication.shared.endEditing()
         pokemonList = []
-        if (!pokemonListAux.isEmpty){ //eh uma busca
+        if (!pokemonListAux.isEmpty){
             pokemonList = pokemonListAux
             pokemonListAux = []
         }
         self.nextPage = ""
         getPokemons()
     }
+    
+    //MARK: Funções do load more
     
     public func loadMore() {
         self.loadPokemons(prox: true)
@@ -40,6 +44,8 @@ class HomeViewModel: ObservableObject, Identifiable {
     public func loadPokemons(prox: Bool = false) {
         getNextPokemons(pageUrl: nextPage)
     }
+    
+    //MARK: Funções auxiliares para extrair id das urls
     
     public func extractIdFromPokemon(urlPokemon:String) -> String{
         
@@ -51,24 +57,31 @@ class HomeViewModel: ObservableObject, Identifiable {
         return "0"
     }
 
-    //MARK: Services calls
+    //MARK: Serviço
+    
     func getPokemons(){
-        PokemonService.getAllPokemons { results, page, error  in
-            if results != [] {
-                self.nextPage = page
-                self.pokemonList = results
-            } else{
-                print("[DEBUG] no results")
+        PokemonService.getAllPokemons { results  in
+            switch results {
+            case .Success(let list, let url):
+                self.nextPage = url
+                self.pokemonList = list
+            case .Fail(let error):
+                print("Error: \(error)")
             }
         }
     }
+    
+    //MARK: Paginação
     func getNextPokemons(pageUrl: String){
-        PokemonService.getNextAllPokemons(pageUrl: pageUrl) { results, page, error  in
-            if results != [] {
-                self.nextPage = page
-                self.pokemonList.append(contentsOf: results)
-            } else{
-                print("[DEBUG] no results")
+        if pageUrl != "null" {
+            PokemonService.getNextAllPokemons(pageUrl: pageUrl) { results in
+                switch results {
+                case .Success(let list, let url):
+                    self.nextPage = url
+                    self.pokemonList.append(contentsOf: list)
+                case .Fail(let error):
+                    print("Error: \(error)")
+                }
             }
         }
     }

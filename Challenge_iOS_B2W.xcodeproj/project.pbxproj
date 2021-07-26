@@ -22,7 +22,7 @@
 		C03B70E126A05B3300CD9FAA /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C03B70E026A05B3300CD9FAA /* Alamofire */; };
 		C03B70E326A05D4E00CD9FAA /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03B70E226A05D4E00CD9FAA /* Services.swift */; };
 		C057BF2126A7A9C50033DA3A /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = C057BF2026A7A9C50033DA3A /* PartialSheet */; };
-		C0A523B726A74AC2002940E7 /* HomeLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A523B626A74AC2002940E7 /* HomeLoadingView.swift */; };
+		C0A523B726A74AC2002940E7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A523B626A74AC2002940E7 /* LoadingView.swift */; };
 		C0A523B926A74BAE002940E7 /* CardShimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A523B826A74BAE002940E7 /* CardShimmer.swift */; };
 		C0E7F6D626AB0BAB00CFD930 /* ImageCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E7F6D526AB0BAB00CFD930 /* ImageCarouselView.swift */; };
 		C0E7F71926AD7C7B00CFD930 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E7F71826AD7C7B00CFD930 /* SceneDelegate.swift */; };
@@ -35,6 +35,8 @@
 		C0E7F72A26AD9E7900CFD930 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E7F72926AD9E7900CFD930 /* CarouselView.swift */; };
 		C0E7F72C26AD9E9E00CFD930 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E7F72B26AD9E9E00CFD930 /* ProgressBar.swift */; };
 		C0E7F72E26AD9EBD00CFD930 /* AbilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E7F72D26AD9EBD00CFD930 /* AbilityView.swift */; };
+		C0E7F73126AE325100CFD930 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E7F73026AE325100CFD930 /* Details.swift */; };
+		C0E7F73326AE392C00CFD930 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E7F73226AE392C00CFD930 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +73,7 @@
 		C03B70D926A0540600CD9FAA /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		C03B70DD26A0543500CD9FAA /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		C03B70E226A05D4E00CD9FAA /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
-		C0A523B626A74AC2002940E7 /* HomeLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLoadingView.swift; sourceTree = "<group>"; };
+		C0A523B626A74AC2002940E7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		C0A523B826A74BAE002940E7 /* CardShimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardShimmer.swift; sourceTree = "<group>"; };
 		C0E7F6D526AB0BAB00CFD930 /* ImageCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarouselView.swift; sourceTree = "<group>"; };
 		C0E7F71826AD7C7B00CFD930 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +84,8 @@
 		C0E7F72926AD9E7900CFD930 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		C0E7F72B26AD9E9E00CFD930 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		C0E7F72D26AD9EBD00CFD930 /* AbilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityView.swift; sourceTree = "<group>"; };
+		C0E7F73026AE325100CFD930 /* Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
+		C0E7F73226AE392C00CFD930 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +161,7 @@
 				C03B70A9269E70F400CD9FAA /* Info.plist */,
 				C03B70A6269E70F400CD9FAA /* Preview Content */,
 				C0E7F71A26AD7F1800CFD930 /* AppDelegate.swift */,
+				C0E7F73226AE392C00CFD930 /* Constants.swift */,
 			);
 			path = Challenge_iOS_B2W;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				C03B70D526A0530A00CD9FAA /* Pokemon.swift */,
+				C0E7F73026AE325100CFD930 /* Details.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -201,7 +207,7 @@
 				C0E7F72426AD9DB100CFD930 /* Components */,
 				C03B70A2269E70F300CD9FAA /* HomeView.swift */,
 				C034FB6826A0AE3900A34C01 /* DetailsView.swift */,
-				C0A523B626A74AC2002940E7 /* HomeLoadingView.swift */,
+				C0A523B626A74AC2002940E7 /* LoadingView.swift */,
 				C0A523B826A74BAE002940E7 /* CardShimmer.swift */,
 				C0E7F6D526AB0BAB00CFD930 /* ImageCarouselView.swift */,
 				C0E7F72726AD9E5A00CFD930 /* SameTypeView.swift */,
@@ -409,11 +415,12 @@
 				C0E7F71B26AD7F1800CFD930 /* AppDelegate.swift in Sources */,
 				C03B70A3269E70F300CD9FAA /* HomeView.swift in Sources */,
 				C0E7F72826AD9E5A00CFD930 /* SameTypeView.swift in Sources */,
+				C0E7F73126AE325100CFD930 /* Details.swift in Sources */,
 				C03B70D626A0530A00CD9FAA /* Pokemon.swift in Sources */,
 				C0E7F72A26AD9E7900CFD930 /* CarouselView.swift in Sources */,
 				C0E7F72E26AD9EBD00CFD930 /* AbilityView.swift in Sources */,
 				C0E7F6D626AB0BAB00CFD930 /* ImageCarouselView.swift in Sources */,
-				C0A523B726A74AC2002940E7 /* HomeLoadingView.swift in Sources */,
+				C0A523B726A74AC2002940E7 /* LoadingView.swift in Sources */,
 				C0E7F72626AD9DC400CFD930 /* SearchBar.swift in Sources */,
 				C03B70E326A05D4E00CD9FAA /* Services.swift in Sources */,
 				C03B70DA26A0540600CD9FAA /* HomeViewModel.swift in Sources */,
@@ -422,6 +429,7 @@
 				C0A523B926A74BAE002940E7 /* CardShimmer.swift in Sources */,
 				C0E7F72C26AD9E9E00CFD930 /* ProgressBar.swift in Sources */,
 				C0E7F71926AD7C7B00CFD930 /* SceneDelegate.swift in Sources */,
+				C0E7F73326AE392C00CFD930 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

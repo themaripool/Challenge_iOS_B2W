@@ -9,6 +9,7 @@ import SwiftUI
 import UIKit
 import Foundation
 import Kingfisher
+import PartialSheet
 
 struct HomeView: View {
     
@@ -16,15 +17,13 @@ struct HomeView: View {
     @ObservedObject var detailsViewModel: DetailsViewModel
     @State private var searchText: String = ""
     @State var showingAlert: Bool = false
-
+    
     var pkm = [Pokemon(name: "a", url: "")]
-
+    
     var body: some View {
         NavigationView {
             if homeViewModel.pokemonList.count == 0{
-                
-                HomeLoadingView()
-                
+                LoadingView()
             } else {
                 List() {
                     SearchBar(text: $searchText, detailsViewModel: detailsViewModel, homeViewModel: homeViewModel, showingAlert: self.$showingAlert)
@@ -44,7 +43,7 @@ struct HomeView: View {
                                             detailsViewModel
                                                 .getPokemonsDetails(index: Int(id)!)
                                             detailsViewModel
-                                                .setVariables(number: id, selected: detailsViewModel.pokemonVarietieNameList.first ?? "")
+                                                .setVariables(number: id)
                                         }) {
                             HStack(alignment: .center, spacing: 16){
                                 
@@ -77,7 +76,6 @@ struct HomeView: View {
                     }
                 }
                 .onAppear(){searchText = ""}
-                
                 .navigationBarTitle("Pokedex")
                 .navigationViewStyle(StackNavigationViewStyle())
             }

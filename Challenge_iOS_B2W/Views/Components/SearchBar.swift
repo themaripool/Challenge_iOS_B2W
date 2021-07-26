@@ -41,7 +41,7 @@ struct SearchBar: UIViewRepresentable {
             self.detailsViewModel.getPokemonsSearch(search: text)
             UIApplication.shared.endEditing()
 
-            PokemonService.getPokemonSearchy(search: text ) { results, error  in
+            PokemonService.getSearchedPokemon(search: text ) { results, error  in
                 if results != nil {
                     self.homeViewModel.pokemonListAux = self.homeViewModel.pokemonList
                     self.homeViewModel.pokemonList = []
