@@ -32,5 +32,8 @@ selecionar uma variação, o app deve carregar automaticamente os dados da varia
 <p align="center">
   <img src="Project_images/home-modoClaro.png" alt="Size Limit CLI" width="150">
   <img src="Project_images/detalhes-modoClaro.png" alt="Size Limit CLI" width="150">
+  <img src="Project_images/detalhes-variedade.png" alt="Size Limit CLI" width="150">
   <img src="Project_images/lista-mesmoTipo.png" alt="Size Limit CLI" width="150">
+  <img src="Project_images/search.png" alt="Size Limit CLI" width="150">
+  <img src="Project_images/details-other.png" alt="Size Limit CLI" width="150">
 </p>
