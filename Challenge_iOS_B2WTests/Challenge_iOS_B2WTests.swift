@@ -11,11 +11,12 @@ import XCTest
 
 class Challenge_iOS_B2WTests: XCTestCase {
 
-    private var homeView: HomeView?
+    private var homeView            : HomeView?
+    private var homeViewModel       : HomeViewModel = HomeViewModel()
     
     override func setUp() {
         super.setUp()
-        homeView = HomeView(homeViewModel: HomeViewModel(), detailsViewModel: DetailsViewModel())
+        homeView = HomeView(homeViewModel: homeViewModel, detailsViewModel: DetailsViewModel())
     }
 
     func testPokemonList() {
@@ -27,5 +28,26 @@ class Challenge_iOS_B2WTests: XCTestCase {
     func testReload() {
         homeView?.homeViewModel.reloadData()
         XCTAssertEqual(homeView?.homeViewModel.pokemonList.count, 0)
+    }
+    
+    func testApiCall(){
+        var nextPage                     : String = ""
+        var pokemonList                  : [Pokemon] = []
+        let expectation                  = expectation(description: "pokemon")
+        
+        PokemonService.getAllPokemons { results  in
+            switch results {
+            case .Success(let list, let url):
+                nextPage = url
+                pokemonList = list
+                expectation.fulfill()
+            case .Fail(let error):
+                print("Error: \(error)")
+            }
+        }
+        
+        waitForExpectations(timeout: 1) { (error) in
+            XCTAssertNotNil(pokemonList)
+        }
     }
 }
